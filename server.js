@@ -25,6 +25,7 @@ mongoose
 
 // Use Routes
 app.use('/api/admin',admin);
+app.use('/api/admin/registeradmin',admin);
 // app.use('/api/students',students);
 // app.use('/api/projects',projects);
 // app.use('/api/projectAttachments',projectAttachments);
