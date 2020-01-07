@@ -6,8 +6,8 @@ import AdminDashboard from './Components/adminDashboard/Index'
 function App() {
   return (
     <div className="App">
-      {/* <ZookiLP /> */}
-      <AdminDashboard/>
+      <ZookiLP />
+      {/* <AdminDashboard/> */}
     </div>
   );
 }
