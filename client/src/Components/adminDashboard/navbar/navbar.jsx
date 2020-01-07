@@ -11,10 +11,8 @@ export default function navbar() {
                 <i className="fas fa-user-circle fa-fw"></i>
                 </a>
                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <a className="dropdown-item" href="#">Settings</a>
-                <a className="dropdown-item" href="#">Activity Log</a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                <a className="dropdown-item" href="#">Account</a>
+                <a className="dropdown-item" href="#">Logout</a>
                 </div>
             </li>
             </ul>
