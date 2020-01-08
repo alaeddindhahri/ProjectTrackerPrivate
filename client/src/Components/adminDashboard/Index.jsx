@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import Navbar from './navbar/navbar';
 import Sidebar from './sidebar/sidebar';
 
-export default class index extends Component {
+ class index extends Component {
+    componentDidMount(){
+        if(!this.props.authAdmin.isAuthenticated){
+            this.props.history.push('/adminlogin');
+        }
+    }
     render() {
         return (
             <div className="container-fluid">
@@ -30,3 +37,13 @@ export default class index extends Component {
         )
     }
 }
+index.propTypes = {
+    authAdmin: PropTypes.object.isRequired,
+    errors:PropTypes.object.isRequired
+
+}
+const mapStateToProps=state=>({
+    authAdmin: state.authAdmin,
+    errors: state.errors
+})
+export default connect(mapStateToProps,{})(index);

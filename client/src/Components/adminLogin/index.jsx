@@ -1,19 +1,77 @@
 import React, { Component } from 'react';
 import './css/styles.css';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import classnames from 'classnames';
+import {loginAdmin} from '../../actions/authAdminAction';
 
-export default class index extends Component {
+class index extends Component {
+    constructor(){
+        super();
+        this.state={
+            username:'',
+            password:'',
+            errors:{},
+        }
+    }
+    componentDidMount(){
+        if(this.props.authAdmin.isAuthenticated){
+            this.props.history.push('/admindashboard');
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.authAdmin.isAuthenticated){
+            this.props.history.push('/admindashboard');
+        }
+
+        if(nextProps.errors){
+            this.setState({
+                errors:nextProps.errors
+            })
+        }
+    }
+    handleChange = e =>{
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+    }
+    handleSubmit=e=>{
+        e.preventDefault();
+
+        const adminData={
+            username: this.state.username,
+            password: this.state.password
+        };
+
+        this.props.loginAdmin(adminData);
+    }
     render() {
+        const {errors} = this.state;
         return (
             <div className="container-fluid">
                 <div className="row login">
-                <form className="login-form">
+                <form noValidate className="login-form" onSubmit={(e)=>this.handleSubmit(e)}>
                     <div className="form-group">
-                        <label for="exampleInputEmail1">Username</label>
-                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                        <label>Username</label>
+                        <input 
+                        type="text" 
+                        name="username" 
+                        defaultValue={this.state.username} 
+                        className={classnames('form-control',
+                        {'is-invalid':errors.username})} 
+                        // className="form-control"
+                        id="exampleInputEmail1" 
+                        onChange={(e)=>this.handleChange(e)}/>
+                        {errors.username&&(<div className="invalid-feedback">{errors.username}</div>)}
                     </div>
                     <div className="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" className="form-control" id="exampleInputPassword1"/>
+                        <label >Password</label>
+                        <input type="password" name="password" defaultValue={this.state.password} 
+                        className={classnames("form-control",{'is-invalid':errors.username})} 
+                        // className="form-control"
+                        id="exampleInputPassword1" onChange={(e)=>this.handleChange(e)}/>
+                        {errors.password&&(<div className="invalid-feedback">{errors.password}</div>)}
                     </div>
                     <button type="submit" className="btn btn-primary">Login</button>
                 </form>
@@ -27,3 +85,15 @@ export default class index extends Component {
         )
     }
 }
+index.propTypes = {
+    loginAdmin: PropTypes.func.isRequired,
+    authAdmin: PropTypes.object.isRequired,
+    errors:PropTypes.object.isRequired
+
+}
+const mapStateToProps=state=>({
+    authAdmin: state.authAdmin,
+    errors: state.errors
+})
+export default connect(mapStateToProps,{loginAdmin})(index);
+// export default index;
