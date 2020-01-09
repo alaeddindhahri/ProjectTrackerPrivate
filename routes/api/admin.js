@@ -33,6 +33,35 @@ router.post('/register',(req,res)=>{
     })
 });
 
+// @route   PUT api/admin/update/:_id
+// @desc    update admin
+// @access  Private
+router.put('/update/:_id',(req,res)=>{
+    const updatedAdmin = new Admin({
+        _id:req.params,
+        username:req.body.username,
+        password: req.body.password,
+        email:req.body.email
+    })
+    bcrypt.genSalt(10,(err,salt)=>{
+        bcrypt.hash(updatedAdmin.password,salt,(err,hash)=>{
+            if(err) throw err;
+            updatedAdmin.password = hash;
+                Admin.findOneAndUpdate(
+                    {_id:updatedAdmin._id},
+                    {$set:{
+                        "username":updatedAdmin.username,
+                        "password":updatedAdmin.password,
+                        "email":updatedAdmin.email
+                    }}
+                )
+                .then(admin=>res.json(admin))
+                .catch(err=>console.log(err));
+        })
+        
+    })
+})
+
 // @route   POST api/admin/login
 // @desc    Login user / Return Token
 // @access  Public
@@ -62,7 +91,7 @@ router.post('/login',(req,res)=>{
                 .then(isMatch=>{
                     if(isMatch){
                         // admin matched
-                        const payload = { id:admin.id,username:admin.username} // create JWT Payload
+                        const payload = { id:admin.id,username:admin.username,password:admin.password,email:admin.email} // create JWT Payload
                         //sign Token
                         jwt.sign(payload,keys.secretOrKey,{expiresIn:3600},(err,token)=>{
                             res.json({
@@ -93,11 +122,6 @@ router.get('/account',passport.authenticate('jwt',{session:false}),(req,res)=>{
             res.json(admin);
         })
         .catch(err=>res.status(404).json(err));
-//     res.json({
-//     id: req.user.id,
-//     username: req.user.username,
-//     email: req.user.email
-// });
 });
 
 module.exports = router;

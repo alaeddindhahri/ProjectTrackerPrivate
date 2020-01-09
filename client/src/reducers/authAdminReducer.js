@@ -1,20 +1,37 @@
 import isEmpty from '../validation/is-empty';
-import {SET_CURRENT_ADMIN} from '../actions/types';
+import {SET_CURRENT_ADMIN,GET_PROJECTS,GET_INSTRUCTORS,GET_STUDENTS} from '../actions/types';
 
 const initialState = {
     isAuthenticated:false,
-    admin:{}
+    admin:{},
+    projects:[],
+    instructors:[],
+    students:[]
 }
 
 
 const authAdminReducer = (state=initialState,action)=>{
     switch(action.type){
             case SET_CURRENT_ADMIN:
-                console.log("called SET_CURRENT_ADMIN in authAdminReducer",state)
                 return{
                     ...state,
                     isAuthenticated: !isEmpty(action.payload),
                     admin: action.payload
+                }
+            case GET_PROJECTS:
+                return{
+                    ...state,
+                    projects:action.payload
+                }
+            case GET_INSTRUCTORS:
+                return{
+                    ...state,
+                    instructors:action.payload
+                }
+            case GET_STUDENTS:
+                return{
+                    ...state,
+                    students:action.payload
                 }
             default:
             return state;

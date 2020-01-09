@@ -5,8 +5,18 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import Navbar from './navbar/navbar';
 import Sidebar from './sidebar/sidebar';
+import DashboardContent from './dashboardContent/index';
 
  class index extends Component {
+     state={
+         section:"Statistics",
+     }
+     handleRenderedSection=(section,e)=>{
+         e.preventDefault();
+         this.setState({
+             section:section
+         })
+     }
     componentDidMount(){
         if(!this.props.authAdmin.isAuthenticated){
             this.props.history.push('/adminlogin');
@@ -17,15 +27,15 @@ import Sidebar from './sidebar/sidebar';
             <div className="container-fluid">
                 <div className="row">
                     <div className="col top-navbar">
-                        <Navbar/>
+                        <Navbar handleRenderedSection={this.handleRenderedSection}/>
                     </div>
                 </div>
                 <div className="row sidebar-content">
                     <div className="col-lg-2 sidebar">
-                        <Sidebar/>
+                        <Sidebar handleRenderedSection={this.handleRenderedSection}/>
                     </div>
                     <div className="col-lg-10 dashboard-content">
-                        
+                        <DashboardContent section={this.state.section}/>
                     </div>
                 </div>
                 <div className="row sticky-footer">

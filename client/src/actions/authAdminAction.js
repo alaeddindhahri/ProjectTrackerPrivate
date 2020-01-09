@@ -42,3 +42,22 @@ export const logoutAdmin=()=>dispatch=>{
     dispatch(setCurrentAdmin({}));
     window.location.href = '/adminlogin';
 }
+
+//update admin
+export const updateAdmin=(idAdmin,newData)=>dispatch=>{
+    axios.put(`/api/admin/update/${idAdmin}`,newData)
+        .then(res=>{
+            //logout admin after updating info
+            // remove token from local storage
+            localStorage.removeItem('jwtToken');
+            // remove authAdmin header for future requests
+            setAuthAdminToken(false);
+            // set current Admin to {} which will set isAuthenticated to false
+            dispatch(setCurrentAdmin({}));
+            window.location.href = '/adminlogin';
+        })
+        .catch(err=> dispatch({
+            type: GET_ERRORS,
+            payload: err.data
+        }));
+}

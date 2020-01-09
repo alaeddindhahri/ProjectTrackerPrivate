@@ -23,8 +23,8 @@ class navbar extends Component {
                 <i className="fas fa-user-circle fa-fw"></i>
                 </a>
                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <a className="dropdown-item" href="#1">Account</a>
-                <a className="dropdown-item" href="#1" onClick={(e)=>this.handleLogout(e)}>Logout</a>
+                <a className="dropdown-item" href="" onClick={(e)=>this.props.handleRenderedSection("Account",e)}>Account</a>
+                <a className="dropdown-item" href="" onClick={(e)=>this.handleLogout(e)}>Logout</a>
                 </div>
             </li>
             </ul>

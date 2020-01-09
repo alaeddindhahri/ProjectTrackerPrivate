@@ -1,7 +1,8 @@
-import React from 'react';
+import React,{Component} from 'react';
 import '../../../assets/fontawesome-free/css/all.min.css';
 import './css/styles.css';
-export default function sidebar() {
+export default class sidebar extends Component {
+    render(){
     return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark nav-sidebar">
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,19 +10,19 @@ export default function sidebar() {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div className="navbar-nav navbar-nav-dashadmin">
-                    <a className="nav-item nav-link active" href="#1">
+                    <a className="nav-item nav-link  " href="" onClick={(e)=>this.props.handleRenderedSection("Statistics",e)}>
                         <i className="fas fa-home"></i>
                         <span>Dashboard</span>
                     </a>
-                    <a className="nav-item nav-link" href="#1">
+                    <a className="nav-item nav-link" href="" onClick={(e)=>this.props.handleRenderedSection("Projects",e)}>
                         <i className="fas fa-fw fa-table"></i>
                         <span>Projects</span>
                     </a>
-                    <a className="nav-item nav-link" href="#1">
+                    <a className="nav-item nav-link" href="" onClick={(e)=>this.props.handleRenderedSection("Instructors",e)}>
                         <i className="fas fa-chalkboard-teacher"></i>
                         <span>Instructors</span>
                     </a>
-                    <a className="nav-item nav-link" href="#1">
+                    <a className="nav-item nav-link" href="" onClick={(e)=>this.props.handleRenderedSection("Students",e)}>
                         <i className="fas fa-user-graduate"></i>
                         <span>Students</span>
                     </a>
@@ -29,4 +30,5 @@ export default function sidebar() {
                 </div>
             </nav>
     )
+    }
 }
