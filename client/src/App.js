@@ -39,7 +39,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={ZookiLP}/>
           <Route exact path="/adminlogin" component={AdminLogin}/>
-          <Route exact path="/admindashboard" component={AdminDashboard}/>
+          <Route path="/admindashboard" component={AdminDashboard}/>
         </Switch>
       </div>
     </BrowserRouter>
