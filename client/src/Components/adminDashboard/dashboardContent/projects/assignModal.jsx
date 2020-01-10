@@ -11,7 +11,7 @@ class assignModal extends Component {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Assign an instructor to this Project</h5>
+                            <h5 className="modal-title" id="exampleModalLabel" style={{"color":"black"}}>Assign an instructor to this Project</h5>
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>

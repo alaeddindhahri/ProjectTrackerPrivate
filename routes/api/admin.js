@@ -177,6 +177,24 @@ router.get('/instructors',(req,res)=>{
         })
         .catch(err=>res.status(404).json(err));
 });
+// @route   PUT api/admin/instructor/:_id
+// @desc    update instructor isActive
+// @access  Private
+router.put('/instructor/:_id',(req,res)=>{
+    const updatedInstructor= new Instructor({
+        _id:req.params,
+        isActive:req.body.isActive
+    })
+        Instructor
+            .findOneAndUpdate(
+            {_id:updatedInstructor._id},
+            {$set:{
+                "isActive":updatedInstructor.isActive
+            }})
+            .then(updatedInstructor=>res.json(updatedInstructor))
+            .catch(err=>console.log(err))
+        
+})
 
 /*************Students API ************/
 // @route   POST api/admin/students
@@ -194,6 +212,25 @@ router.get('/students',(req,res)=>{
         })
         .catch(err=>res.status(404).json(err));
 });
+
+// @route   PUT api/admin/student/:_id
+// @desc    update student isActive
+// @access  Private
+router.put('/student/:_id',(req,res)=>{
+    const updatedStudent= new Student({
+        _id:req.params,
+        isActive:req.body.isActive
+    })
+        Student
+            .findOneAndUpdate(
+            {_id:updatedStudent._id},
+            {$set:{
+                "isActive":updatedStudent.isActive
+            }})
+            .then(updatedStudent=>res.json(updatedStudent))
+            .catch(err=>console.log(err))
+        
+})
 
 
 module.exports = router;

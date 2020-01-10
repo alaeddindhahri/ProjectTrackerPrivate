@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-
+import {toggleInstructor} from '../../../../actions/instructorsAdminAction';
 
  class index extends Component {
+     handleToggle=(idInstructor,status)=>{
+         this.props.toggleInstructor(idInstructor,status)
+     }
     render() {
         return (
             <div className="row">
@@ -14,7 +17,10 @@ import PropTypes from 'prop-types';
                             <div className="card-body">
                                 <p className="card-text">Email: {instructor.email}</p>
                                 <p className="card-text">Phone Number: {instructor.phoneNumber}</p>
-                                <a href="" className="btn btn-primary">View</a>
+                                <div style={{"display":"flex","justifyContent":"space-around"}}>
+                                    <a href="" className="btn btn-primary">View</a>
+                                    <a href="" className={instructor.isActive?"btn btn-danger":"btn btn-success"} onClick={()=>this.handleToggle(instructor._id,!instructor.isActive)}>{instructor.isActive?"Disable":"Activate"}</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -32,4 +38,4 @@ const mapStateToProps=state=>({
     authAdmin: state.authAdmin,
     errors: state.errors
 })
-export default connect(mapStateToProps,{})(index);
+export default connect(mapStateToProps,{toggleInstructor})(index);
