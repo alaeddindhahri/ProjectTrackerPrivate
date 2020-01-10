@@ -6,6 +6,9 @@ import './styles.css';
 import Navbar from './navbar/navbar';
 import Sidebar from './sidebar/sidebar';
 import DashboardContent from './dashboardContent/index';
+import {setProjects} from '../../actions/projectsAdminAction';
+import {setInstructors} from '../../actions/instructorsAdminAction';
+import {setStudents} from '../../actions/studentsAdminAction';
 
  class index extends Component {
      state={
@@ -19,8 +22,16 @@ import DashboardContent from './dashboardContent/index';
      }
     componentDidMount(){
         if(!this.props.authAdmin.isAuthenticated){
-            this.props.history.push('/adminlogin');
+            return this.props.history.push('/adminlogin');
         }
+        if(this.props.authAdmin.students.length!==0){
+            this.setState({
+                section:"Statistics"
+            })
+        }
+        this.props.setProjects();
+        this.props.setInstructors();
+        this.props.setStudents();
     }
     render() {
         return (
@@ -56,4 +67,4 @@ const mapStateToProps=state=>({
     authAdmin: state.authAdmin,
     errors: state.errors
 })
-export default connect(mapStateToProps,{})(index);
+export default connect(mapStateToProps,{setProjects,setInstructors,setStudents})(index);

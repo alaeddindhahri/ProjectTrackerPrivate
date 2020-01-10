@@ -23,7 +23,7 @@ export default class index extends Component {
     }
     render() {
         return (
-            <div className="container-fluid">
+            <div className="container-fluid content-container">
                 {this.renderSwitchSection()}
             </div>
         )

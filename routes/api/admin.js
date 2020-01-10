@@ -10,6 +10,9 @@ const validateAdminLoginInput = require('../../validation/adminlogin');
 
 //load admin model
 const Admin = require('../../models/Admin')
+const Project = require('../../models/Project')
+const Instructor = require('../../models/Instructor')
+const Student = require('../../models/Student')
 
 // @route   POST api/admin/register
 // @desc    register admin
@@ -114,7 +117,6 @@ router.get('/account',passport.authenticate('jwt',{session:false}),(req,res)=>{
     const errors = {};
     Admin.findOne({_id:req.user.id})
         .then(admin=>{
-            console.log(admin)
             if(!admin){
                 errors.noadmin="Not authorized";
                 return res.status(404).json(errors);
@@ -123,5 +125,75 @@ router.get('/account',passport.authenticate('jwt',{session:false}),(req,res)=>{
         })
         .catch(err=>res.status(404).json(err));
 });
+
+/*************Projects API ************/
+// @route   POST api/admin/projects
+// @desc    Return all projects
+// @access  Private
+router.get('/projects',(req,res)=>{
+    const errors = {};
+    Project.find()
+        .then(project=>{
+            if(!project){
+                errors.noprojects="No projects";
+                return res.status(404).json(errors);
+            }
+            res.json(project);
+        })
+        .catch(err=>res.status(404).json(err));
+});
+// @route   PUT api/admin/projects/:_id
+// @desc    assign instructor to project
+// @access  Private
+router.put('/project/:_id',(req,res)=>{
+    const updatedProject = new Project({
+        _id:req.params,
+        idInstructor:req.body.idInstructor
+    })
+        Project
+            .findOneAndUpdate(
+            {_id:updatedProject._id},
+            {$set:{
+                "idInstructor":updatedProject.idInstructor,"assignmentDate":Date.now()
+            }})
+            .then(updatedProject=>res.json(updatedProject))
+            .catch(err=>console.log(err))
+        
+})
+
+/*************Instructors API ************/
+// @route   POST api/admin/instructors
+// @desc    Return all instructors
+// @access  Private
+router.get('/instructors',(req,res)=>{
+    const errors = {};
+    Instructor.find()
+        .then(instructor=>{
+            if(!instructor){
+                errors.noinstructors="No instructors";
+                return res.status(404).json(errors);
+            }
+            res.json(instructor);
+        })
+        .catch(err=>res.status(404).json(err));
+});
+
+/*************Students API ************/
+// @route   POST api/admin/students
+// @desc    Return all students
+// @access  Private
+router.get('/students',(req,res)=>{
+    const errors = {};
+    Student.find()
+        .then(student=>{
+            if(!student){
+                errors.nostudents="No instructors";
+                return res.status(404).json(errors);
+            }
+            res.json(student);
+        })
+        .catch(err=>res.status(404).json(err));
+});
+
 
 module.exports = router;
