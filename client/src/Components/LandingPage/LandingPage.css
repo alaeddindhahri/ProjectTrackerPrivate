@@ -1,24 +1,25 @@
-.navbtns > * {
-  margin: 2%;
+.nav-link {
+  font-size: 17px !important;
 }
-.navbar-brand {
-  padding-left: 2%;
+.userType {
+  width: 70%;
+  margin: 0px;
+  display: flex;
+  justify-content: space-around;
 }
-.formRow {
-  margin: 5%;
+#welcomeMsg {
+  margin: 3% !important;
 }
-.navigationBar {
-  padding: 0px !important;
+#welcomeMsg > span {
+  color: red;
 }
 .formArea {
   background-color: white;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 5%;
-  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .formArea > input {
   width: 70%;
@@ -33,18 +34,11 @@
   width: 70%;
   text-align: right;
 }
-#emailArea {
+.form-control {
   margin-bottom: 3%;
 }
-.connectBtns {
-  width: 80%;
-}
-.connectBtns > * {
-  margin: 2%;
-}
-.userType {
+p {
+  margin: 0px !important;
+  text-align: left;
   width: 70%;
-  margin-bottom: 7%;
-  display: flex;
-  justify-content: space-around;
 }
