@@ -1,7 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "../LandingPage/LandingPage.css";
-import axios from "axios";
+import { addInstructor, getInstructors } from "../../actions/InstructorActions";
 
 class CnxModal extends React.Component {
   state = {
@@ -17,11 +19,6 @@ class CnxModal extends React.Component {
       isActive: false
     }
   };
-  addInstructor = newInstructor => {
-    axios
-      .post("/api/instructors/registerinstructor", newInstructor)
-      .then(console.log("Instructor added Successfully"));
-  };
 
   handleChange = e => {
     this.setState({
@@ -31,13 +28,40 @@ class CnxModal extends React.Component {
       }
     });
   };
+
+  checkEmpty = () => {
+    let emptyField = 0;
+    Object.values(this.state.newInstructor).map(field => {
+      if (field === "") emptyField = 1;
+    });
+    return emptyField;
+  };
+  handleSubmit = () => {
+    let validUser = 1;
+    if (this.checkEmpty()) {
+      alert("One field is empty");
+      validUser = 0;
+    } else
+      this.props.instructors.map(instructor => {
+        if (instructor.email === this.state.newInstructor.email) {
+          alert("email exists");
+          validUser = 0;
+        } else if (instructor.username === this.state.newInstructor.username) {
+          alert("UserName exists");
+          validUser = 0;
+        }
+      });
+    if (validUser === 1) {
+      this.props.addInstructor(this.state.newInstructor);
+      alert("User Added Successfully");
+      this.props.toggle();
+    }
+  };
+  componentDidMount() {
+    this.props.getInstructors();
+  }
   render() {
     return (
-      // <Modal
-      // isOpen={this.props.modal}
-      // toggle={this.props.toggle}
-      //   className="col-10"
-      // >
       <Modal isOpen={this.props.modal} toggle={this.props.toggle}>
         <ModalHeader toggle={this.toggle}>{this.props.type}</ModalHeader>
         <ModalBody className="formArea">
@@ -154,8 +178,7 @@ class CnxModal extends React.Component {
           <Button
             color="primary"
             onClick={() => {
-              this.props.toggle();
-              this.addInstructor(this.state.newInstructor);
+              this.handleSubmit();
             }}
           >
             {this.props.type}
@@ -169,4 +192,9 @@ class CnxModal extends React.Component {
   }
 }
 
-export default CnxModal;
+export default connect(
+  state => {
+    return { instructors: state.instructorsReducer.instructors };
+  },
+  { getInstructors, addInstructor }
+)(CnxModal);
