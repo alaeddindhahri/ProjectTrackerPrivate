@@ -32,7 +32,7 @@ const StudentSchema = new Schema({
     },
     isActive:{
         type:Boolean,
-        required:true
+        required:false
     },
 },{collection:'students'});
 

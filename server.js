@@ -31,8 +31,8 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 // Use Routes
 app.use('/api/admin',admin);
-// app.use('/api/students',students);
-// app.use('/api/projects',projects);
+app.use('/api/students',students);
+app.use('/api/projects',projects);
 // app.use('/api/projectAttachments',projectAttachments);
 // app.use('/api/instructors',instructors);
 
