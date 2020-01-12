@@ -1,0 +1,4 @@
+.formArea {
+  display: flex;
+  flex-direction: column;
+}

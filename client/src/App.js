@@ -8,7 +8,7 @@ import {setCurrentAdmin, logoutAdmin} from './actions/authAdminAction';
 import {Provider} from 'react-redux';
 import Store from './store/index';
 
-import ZookiLP from "./Components/zookiLP/zookiLP";
+import LandingPage from "./Components/LandingPage/LandingPage";
 import AdminDashboard from './Components/adminDashboard/Index'
 import AdminLogin from './Components/adminLogin/index';
 import store from "./store/index";
@@ -37,7 +37,7 @@ function App() {
       <BrowserRouter>
       <div className="App">
         <Switch>
-          <Route exact path="/" component={ZookiLP}/>
+          <Route exact path="/" component={LandingPage}/>
           <Route exact path="/adminlogin" component={AdminLogin}/>
           <Route path="/admindashboard" component={AdminDashboard}/>
         </Switch>
