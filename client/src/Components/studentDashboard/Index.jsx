@@ -7,7 +7,7 @@ import Navbar from './navbar/navbar';
 import Sidebar from './sidebar/sidebar';
 import DashboardContent from './dashboardContent/index';
 import {setProjects} from '../../actions/projectsStudentAction';
-
+import AddModal from './dashboardContent/projects/AddModal';
 
 
  class index extends Component {
@@ -51,6 +51,9 @@ import {setProjects} from '../../actions/projectsStudentAction';
                     <div className="copyright text-center my-auto">
                         <span>Copyright © Project Tracker 2020</span>
                     </div>
+                </div>
+                <div>
+                <AddModal />
                 </div>
             </div>
         )
