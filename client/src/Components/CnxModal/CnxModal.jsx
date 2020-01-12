@@ -31,17 +31,20 @@ class CnxModal extends React.Component {
 
   checkEmpty = () => {
     let emptyField = 0;
+    // eslint-disable-next-line
     Object.values(this.state.newInstructor).map(field => {
       if (field === "") emptyField = 1;
     });
     return emptyField;
   };
+  // eslint-disable-next-line
   handleSubmit = () => {
     let validUser = 1;
     if (this.checkEmpty()) {
       alert("One field is empty");
       validUser = 0;
-    } else
+    } else {
+      // eslint-disable-next-line
       this.props.instructors.map(instructor => {
         if (instructor.email === this.state.newInstructor.email) {
           alert("email exists");
@@ -51,6 +54,7 @@ class CnxModal extends React.Component {
           validUser = 0;
         }
       });
+    }
     if (validUser === 1) {
       this.props.addInstructor(this.state.newInstructor);
       alert("User Added Successfully");
