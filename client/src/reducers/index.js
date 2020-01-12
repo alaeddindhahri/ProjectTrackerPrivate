@@ -1,7 +1,8 @@
 import {combineReducers} from 'redux';
 import authAdminReducer from './authAdminReducer';
-
+import authStudentReducer from './authStudentReducer';
 
 export default combineReducers({
-    authAdmin: authAdminReducer
+    authAdmin: authAdminReducer,
+    authStudent: authStudentReducer
 });
