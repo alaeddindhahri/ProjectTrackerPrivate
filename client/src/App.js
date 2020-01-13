@@ -10,6 +10,7 @@ import Store from "./store/index";
 
 import LandingPage from "./Components/LandingPage/LandingPage";
 import AdminDashboard from "./Components/adminDashboard/Index";
+import StudentDashboard from "./Components/studentDashboard/dashboardContent";
 import AdminLogin from "./Components/adminLogin/index";
 import store from "./store/index";
 
@@ -40,6 +41,7 @@ function App() {
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/adminlogin" component={AdminLogin} />
             <Route path="/admindashboard" component={AdminDashboard} />
+            <Route path="/StudentDashboard" component={StudentDashboard} />
           </Switch>
         </div>
       </BrowserRouter>
