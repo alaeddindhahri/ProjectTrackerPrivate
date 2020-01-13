@@ -10,6 +10,7 @@ import { addStudent, getStudents } from "../../actions/StudentActions";
 class CnxModal extends React.Component {
   state = {
     userType: "",
+    users: [],
     newUser: {
       firstName: "",
       lastName: "",
@@ -24,12 +25,29 @@ class CnxModal extends React.Component {
 
   handleChange = e => {
     this.setState({
-      newInstructor: {
-        ...this.state.newInstructor,
+      newUser: {
+        ...this.state.newUser,
         [e.target.name]: e.target.value
       }
     });
   };
+
+  // handleUserType = () => {
+  //   if (this.state.userType === "Student") {
+  //     this.setState({ users: this.props.students });
+  //   } else if (this.state.userType === "Instructor") {
+  //     this.setState({ users: this.props.instructors });
+  //   }
+  // };
+  // handleUserType = e => {
+  //   this.state.userType
+  //     ? this.setState({
+  //         users: this.props.students
+  //       })
+  //     : this.setState({
+  //         users: this.props.instructors
+  //       });
+  // };
 
   checkEmpty = () => {
     let emptyField = 0;
@@ -42,29 +60,35 @@ class CnxModal extends React.Component {
   // eslint-disable-next-line
   handleSubmit = () => {
     let validUser = 1;
-    if (this.checkEmpty()) {
-      alert("One field is empty");
+    if (this.checkEmpty() || this.state.userType === "") {
+      alert("One field is empty or empty user type");
       validUser = 0;
     } else {
       // eslint-disable-next-line
-      this.props.instructors.map(instructor => {
-        if (instructor.email === this.state.newInstructor.email) {
+      this.state.users.map(user => {
+        if (user.email === this.state.newUser.email) {
           alert("email exists");
           validUser = 0;
-        } else if (instructor.username === this.state.newInstructor.username) {
+        } else if (user.username === this.state.newUser.username) {
           alert("UserName exists");
           validUser = 0;
         }
       });
     }
     if (validUser === 1) {
-      this.props.addInstructor(this.state.newInstructor);
-      alert("User Added Successfully");
+      if (this.state.userType === "Instructor") {
+        this.props.addInstructor(this.state.newUser);
+        alert(`${this.state.userType} added successfully`);
+      } else if (this.state.userType === "Student") {
+        this.props.addStudent(this.state.newUser);
+        alert(`${this.state.userType} added successfully`);
+      }
       this.props.toggle();
     }
   };
   componentDidMount() {
     this.props.getInstructors();
+    this.props.getStudents();
   }
   render() {
     return (
@@ -80,19 +104,29 @@ class CnxModal extends React.Component {
             alt="logo"
           />
           <h3>Project Tracker</h3>
-          <p className="specifyUser">please Specify the user Type</p>
+          <p className="specifyUser">please specify the user type</p>
           <div className="userType">
             <button
               type="button"
               className="btn btn-info"
-              onClick={() => this.setState({ userType: "Student" })}
+              onClick={() =>
+                this.setState({
+                  userType: "Student",
+                  users: this.props.students
+                })
+              }
             >
               Student
             </button>
             <button
               type="button"
               className="btn btn-info"
-              onClick={() => this.setState({ userType: "Instructor" })}
+              onClick={() =>
+                this.setState({
+                  userType: "Instructor",
+                  users: this.props.instructors
+                })
+              }
             >
               Instructor
             </button>
@@ -201,7 +235,10 @@ class CnxModal extends React.Component {
 
 export default connect(
   state => {
-    return { instructors: state.instructorsReducer.instructors };
+    return {
+      instructors: state.instructorsReducer.instructors,
+      students: state.studentsReducer.students
+    };
   },
   { getInstructors, addInstructor, getStudents, addStudent }
 )(CnxModal);
