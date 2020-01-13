@@ -21,7 +21,7 @@ const ProjectSchema = new Schema({
     },
     idStudent:{
         type:String,
-        required:true
+        required:false
     },
     idInstructor:{
         type:String,
@@ -32,18 +32,23 @@ const ProjectSchema = new Schema({
     },
     deadline:{
         type:Date,
+        required:true
     },
     assignmentDate:{
         type:Date,
+        required:false
     },
     confirmationDate:{
         type:Date,
+        required:false
     },
     submissionDate:{
         type:Date,
+        required:false
     },
     validationDate:{
         type:Date,
+        required:false
     }
 },{collection:'projects'});
 
