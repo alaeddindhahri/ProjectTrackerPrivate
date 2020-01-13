@@ -3,9 +3,11 @@ import authAdminReducer from "./authAdminReducer";
 // eslint-disable-next-line
 import authStudentReducer from "./authStudentReducer";
 import instructorsReducer from "./instructorsReducer";
+import studentsReducer from "./studentsReducer";
 
 export default combineReducers({
-  authAdmin: authAdminReducer,
   // authStudent: authStudentReducer,
-  instructorsReducer: instructorsReducer
+  authAdmin: authAdminReducer,
+  instructorsReducer: instructorsReducer,
+  studentsReducer: studentsReducer
 });

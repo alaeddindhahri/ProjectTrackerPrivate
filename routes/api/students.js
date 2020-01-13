@@ -14,10 +14,27 @@ const Project = require("../../models/Project");
 // const Instructor = require("../../models/Instructor");
 const Student = require("../../models/Student");
 
+// /*************Students API ************/
+// // @route   POST api/admin/students
+// // @desc    Return all students
+// // @access  Private
+router.get("/getStudents", (req, res) => {
+  const errors = {};
+  Student.find()
+    .then(student => {
+      if (!student) {
+        errors.nostudents = "No students";
+        return res.status(404).json(errors);
+      }
+      res.json(student);
+    })
+    .catch(err => res.status(404).json(err));
+});
+
 // @route   POST api/student/register
 // @desc    register student
 // @access  Public
-router.post("/register", (req, res) => {
+router.post("/registerStudent", (req, res) => {
   const newStudent = new Student({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -42,14 +59,14 @@ router.post("/register", (req, res) => {
 // @route   PUT api/student/update/:_id
 // @desc    update student
 // @access  Private
-router.put("/update/:_id", (req, res) => {
-  const updatedStudent = new Student({
+router.put("/updateStudent/:_id", (req, res) => {
+  const updatedStudent = {
     _id: req.params,
     username: req.body.username,
     password: req.body.password,
     phoneNumber: req.body.phoneNumber,
     email: req.body.email
-  });
+  };
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(updatedStudent.password, salt, (err, hash) => {
       if (err) throw err;
@@ -58,10 +75,7 @@ router.put("/update/:_id", (req, res) => {
         { _id: updatedStudent._id },
         {
           $set: {
-            username: req.body.username,
-            password: req.body.password,
-            phoneNumber: req.body.phoneNumber,
-            email: req.body.email
+            ...updatedStudent
           }
         }
       )
@@ -74,111 +88,111 @@ router.put("/update/:_id", (req, res) => {
 // @route   POST api/student/login
 // @desc    Login user / Return Token
 // @access  Public
-router.post("/login", (req, res) => {
-  const { errors, isValid } = validateStudentLoginInput(req.body);
+// router.post("/login", (req, res) => {
+//   const { errors, isValid } = validateStudentLoginInput(req.body);
 
-  // Check Validation
-  if (isValid) {
-    return res.status(400).json(errors);
-  }
+//   // Check Validation
+//   if (isValid) {
+//     return res.status(400).json(errors);
+//   }
 
-  const username = req.body.username;
-  const password = req.body.password;
+//   const username = req.body.username;
+//   const password = req.body.password;
 
-  //find admin by username
-  Student.findOne({ username }).then(student => {
-    //check for username
-    if (!student) {
-      errors.username = "Username incorrect";
-      return res.status(404).json(errors);
-    }
+//   //find admin by username
+//   Student.findOne({ username }).then(student => {
+//     //check for username
+//     if (!student) {
+//       errors.username = "Username incorrect";
+//       return res.status(404).json(errors);
+//     }
 
-    //check password
-    bcrypt.compare(password, student.password).then(isMatch => {
-      if (isMatch) {
-        // student matched
-        const payload = {
-          id: student.id,
-          username: student.username,
-          password: student.password,
-          email: student.email
-        }; // create JWT Payload
-        //sign Token
-        jwt.sign(
-          payload,
-          keys.secretOrKey,
-          { expiresIn: 3600 },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: "Bearer " + token
-            });
-          }
-        );
-      } else {
-        errors.password = "Password incorrect";
-        return res.status(400).json(errors);
-      }
-    });
-  });
-});
+//     //check password
+//     bcrypt.compare(password, student.password).then(isMatch => {
+//       if (isMatch) {
+//         // student matched
+//         const payload = {
+//           id: student.id,
+//           username: student.username,
+//           password: student.password,
+//           email: student.email
+//         }; // create JWT Payload
+//         //sign Token
+//         jwt.sign(
+//           payload,
+//           keys.secretOrKey,
+//           { expiresIn: 3600 },
+//           (err, token) => {
+//             res.json({
+//               success: true,
+//               token: "Bearer " + token
+//             });
+//           }
+//         );
+//       } else {
+//         errors.password = "Password incorrect";
+//         return res.status(400).json(errors);
+//       }
+//     });
+//   });
+// });
 
 // @route   POST api/student/current
 // @desc    Return current Student
 // @access  Private
-router.get(
-  "/account",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const errors = {};
-    Student.findOne({ _id: req.user.id })
-      .then(student => {
-        if (!student) {
-          errors.nostudent = "Not authorized";
-          return res.status(404).json(errors);
-        }
-        res.json(student);
-      })
-      .catch(err => res.status(404).json(err));
-  }
-);
+// router.get(
+//   "/account",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     const errors = {};
+//     Student.findOne({ _id: req.user.id })
+//       .then(student => {
+//         if (!student) {
+//           errors.nostudent = "Not authorized";
+//           return res.status(404).json(errors);
+//         }
+//         res.json(student);
+//       })
+//       .catch(err => res.status(404).json(err));
+//   }
+// );
 
 /*************Projects API ************/
 // @route   POST api/student/projects
 // @desc    Return all projects
 // @access  Private
-router.get("/projects", (req, res) => {
-  const errors = {};
-  Project.find()
-    .then(project => {
-      if (!project) {
-        errors.noprojects = "No projects";
-        return res.status(404).json(errors);
-      }
-      res.json(project);
-    })
-    .catch(err => res.status(404).json(err));
-});
+// router.get("/projects", (req, res) => {
+//   const errors = {};
+//   Project.find()
+//     .then(project => {
+//       if (!project) {
+//         errors.noprojects = "No projects";
+//         return res.status(404).json(errors);
+//       }
+//       res.json(project);
+//     })
+//     .catch(err => res.status(404).json(err));
+// });
 // @route   PUT api/student/projects/:_id
 // @desc    assign instructor to project
 // @access  Private
-router.put("/project/:_id", (req, res) => {
-  const updatedProject = new Project({
-    _id: req.params,
-    idInstructor: req.body.idInstructor
-  });
-  Project.findOneAndUpdate(
-    { _id: updatedProject._id },
-    {
-      $set: {
-        idInstructor: updatedProject.idInstructor,
-        assignmentDate: Date.now()
-      }
-    }
-  )
-    .then(updatedProject => res.json(updatedProject))
-    .catch(err => console.log(err));
-});
+// router.put("/project/:_id", (req, res) => {
+//   const updatedProject = new Project({
+//     _id: req.params,
+//     idInstructor: req.body.idInstructor
+//   });
+//   Project.findOneAndUpdate(
+//     { _id: updatedProject._id },
+//     {
+//       $set: {
+//         idInstructor: updatedProject.idInstructor,
+//         assignmentDate: Date.now()
+//       }
+//     }
+//   )
+//     .then(updatedProject => res.json(updatedProject))
+//     .catch(err => console.log(err));
+// });
 
 // /*************Instructors API ************/
 // // @route   POST api/student/instructors
@@ -214,23 +228,6 @@ router.put("/project/:_id", (req, res) => {
 //   )
 //     .then(updatedInstructor => res.json(updatedInstructor))
 //     .catch(err => console.log(err));
-// });
-
-// /*************Students API ************/
-// // @route   POST api/admin/students
-// // @desc    Return all students
-// // @access  Private
-// router.get("/students", (req, res) => {
-//   const errors = {};
-//   Student.find()
-//     .then(student => {
-//       if (!student) {
-//         errors.nostudents = "No instructors";
-//         return res.status(404).json(errors);
-//       }
-//       res.json(student);
-//     })
-//     .catch(err => res.status(404).json(err));
 // });
 
 // // @route   PUT api/admin/student/:_id

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { GET_PROJECT } from "./types";
+
 // export const getproject = () => async dispatch => {
 //   try {
 //     const res = await axios.get("/api/projects");
@@ -30,11 +31,11 @@ import { GET_PROJECT } from "./types";
 //   }
 // };
 
-export const addProject = payload => async dispatch => {
-  try {
-    await axios.post("/api/projects/createProject", payload);
-    dispatch(getproject());
-  } catch (err) {
-    console.error(err);
-  }
-};
+// export const addProject = payload => async dispatch => {
+//   try {
+//     await axios.post("/api/projects/createProject", payload);
+//     dispatch(getproject());
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
