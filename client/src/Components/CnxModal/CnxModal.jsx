@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "../LandingPage/LandingPage.css";
+import "./CnxModal.css";
 import { addInstructor, getInstructors } from "../../actions/InstructorActions";
+import { addStudent, getStudents } from "../../actions/StudentActions";
 
 class CnxModal extends React.Component {
   state = {
     userType: "",
-    newInstructor: {
+    newUser: {
       firstName: "",
       lastName: "",
       email: "",
@@ -32,7 +34,7 @@ class CnxModal extends React.Component {
   checkEmpty = () => {
     let emptyField = 0;
     // eslint-disable-next-line
-    Object.values(this.state.newInstructor).map(field => {
+    Object.values(this.state.newUser).map(field => {
       if (field === "") emptyField = 1;
     });
     return emptyField;
@@ -78,6 +80,7 @@ class CnxModal extends React.Component {
             alt="logo"
           />
           <h3>Project Tracker</h3>
+          <p className="specifyUser">please Specify the user Type</p>
           <div className="userType">
             <button
               type="button"
@@ -164,7 +167,7 @@ class CnxModal extends React.Component {
                 name="phoneNumber"
                 onChange={this.handleChange}
               />
-              <p>Birth date: </p>
+              <p className="birthdate">Birth date: </p>
               <input
                 className="form-control"
                 type="date"
@@ -200,5 +203,5 @@ export default connect(
   state => {
     return { instructors: state.instructorsReducer.instructors };
   },
-  { getInstructors, addInstructor }
+  { getInstructors, addInstructor, getStudents, addStudent }
 )(CnxModal);
