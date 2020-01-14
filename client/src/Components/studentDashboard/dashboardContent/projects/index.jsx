@@ -19,19 +19,11 @@ class index extends Component {
       <div className="row">
         {this.props.authStudent.projects.map((project, key) => (
           <div key={key} className="col-lg-3 col-xs-12 mt-4">
-            <div
-              // className={
-              //   project.idInstructor
-              //     ? "card"
-              //     : "card text-white bg-secondary mb-3"
-              // }
-              className="card"
-            >
+            <div className="card">
               <h5 className="card-header">{project.name}</h5>
               <div className="card-body">
                 <p className="card-text">{project.description}</p>
                 <p className="card-text">Github Link: {project.githubLink}</p>
-                {/* eslint-disable-next-line */}
                 <a
                   href=""
                   className="btn btn-primary"

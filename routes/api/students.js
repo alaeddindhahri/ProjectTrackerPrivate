@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
-const passport = require("passport");
+const passportStudent = require("passport");
 
 // Load Admin Login Validation
 const validateStudentLoginInput = require("../../validation/studentlogin");
@@ -88,111 +88,111 @@ router.put("/updateStudent/:_id", (req, res) => {
 // @route   POST api/student/login
 // @desc    Login user / Return Token
 // @access  Public
-// router.post("/login", (req, res) => {
-//   const { errors, isValid } = validateStudentLoginInput(req.body);
+router.post("/login", (req, res) => {
+  // const { errors, isValid } = validateStudentLoginInput(req.body);
 
-//   // Check Validation
-//   if (isValid) {
-//     return res.status(400).json(errors);
-//   }
+  // // Check Validation
+  // if (isValid) {
+  //   return res.status(400).json(errors);
+  // }
 
-//   const username = req.body.username;
-//   const password = req.body.password;
+  const email = req.body.email;
+  const password = req.body.password;
 
-//   //find admin by username
-//   Student.findOne({ username }).then(student => {
-//     //check for username
-//     if (!student) {
-//       errors.username = "Username incorrect";
-//       return res.status(404).json(errors);
-//     }
+  //find admin by username
+  Student.findOne({ email }).then(student => {
+    //check for username
+    if (!student) {
+      // errors.email = "email incorrect";
+      return res.status(404).json({ email: "Student not found" });
+    }
 
-//     //check password
-//     bcrypt.compare(password, student.password).then(isMatch => {
-//       if (isMatch) {
-//         // student matched
-//         const payload = {
-//           id: student.id,
-//           username: student.username,
-//           password: student.password,
-//           email: student.email
-//         }; // create JWT Payload
-//         //sign Token
-//         jwt.sign(
-//           payload,
-//           keys.secretOrKey,
-//           { expiresIn: 3600 },
-//           (err, token) => {
-//             res.json({
-//               success: true,
-//               token: "Bearer " + token
-//             });
-//           }
-//         );
-//       } else {
-//         errors.password = "Password incorrect";
-//         return res.status(400).json(errors);
-//       }
-//     });
-//   });
-// });
+    //     //check password
+    bcrypt.compare(password, student.password).then(isMatch => {
+      if (isMatch) {
+        // student matched
+        const payload = {
+          id: student.id,
+          username: student.username,
+          password: student.password,
+          email: student.email
+        }; // create JWT Payload
+        //sign Token
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          { expiresIn: 3600 },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token
+            });
+          }
+        );
+      } else {
+        errors.password = "Password incorrect";
+        return res.status(400).json(errors);
+      }
+    });
+  });
+});
 
 // @route   POST api/student/current
 // @desc    Return current Student
 // @access  Private
-// router.get(
-//   "/account",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     const errors = {};
-//     Student.findOne({ _id: req.user.id })
-//       .then(student => {
-//         if (!student) {
-//           errors.nostudent = "Not authorized";
-//           return res.status(404).json(errors);
-//         }
-//         res.json(student);
-//       })
-//       .catch(err => res.status(404).json(err));
-//   }
-// );
+router.get(
+  "/account",
+  passportStudent.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+    Student.findOne({ _id: req.user.id })
+      .then(student => {
+        if (!student) {
+          errors.nostudent = "Not authorized";
+          return res.status(404).json(errors);
+        }
+        res.json(student);
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
 
 /*************Projects API ************/
 // @route   POST api/student/projects
 // @desc    Return all projects
 // @access  Private
-// router.get("/projects", (req, res) => {
-//   const errors = {};
-//   Project.find()
-//     .then(project => {
-//       if (!project) {
-//         errors.noprojects = "No projects";
-//         return res.status(404).json(errors);
-//       }
-//       res.json(project);
-//     })
-//     .catch(err => res.status(404).json(err));
-// });
+router.get("/projects", (req, res) => {
+  const errors = {};
+  Project.find()
+    .then(project => {
+      if (!project) {
+        errors.noprojects = "No projects";
+        return res.status(404).json(errors);
+      }
+      res.json(project);
+    })
+    .catch(err => res.status(404).json(err));
+});
 // @route   PUT api/student/projects/:_id
 // @desc    assign instructor to project
 // @access  Private
-// router.put("/project/:_id", (req, res) => {
-//   const updatedProject = new Project({
-//     _id: req.params,
-//     idInstructor: req.body.idInstructor
-//   });
-//   Project.findOneAndUpdate(
-//     { _id: updatedProject._id },
-//     {
-//       $set: {
-//         idInstructor: updatedProject.idInstructor,
-//         assignmentDate: Date.now()
-//       }
-//     }
-//   )
-//     .then(updatedProject => res.json(updatedProject))
-//     .catch(err => console.log(err));
-// });
+router.put("/project/:_id", (req, res) => {
+  const updatedProject = new Project({
+    _id: req.params,
+    idInstructor: req.body.idInstructor
+  });
+  Project.findOneAndUpdate(
+    { _id: updatedProject._id },
+    {
+      $set: {
+        idInstructor: updatedProject.idInstructor,
+        assignmentDate: Date.now()
+      }
+    }
+  )
+    .then(updatedProject => res.json(updatedProject))
+    .catch(err => console.log(err));
+});
 
 // /*************Instructors API ************/
 // // @route   POST api/student/instructors

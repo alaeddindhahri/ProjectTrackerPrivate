@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
-const passport = require("passport");
+const passportInstructor = require("passport");
 
 // Load Instructor Model (Schema)
 const Instructor = require("../../models/Instructor");
@@ -73,7 +73,7 @@ router.post("/instructorLogin", (req, res) => {
           (err, token) => {
             res.json({
               success: true,
-              token: "Bearer" + token
+              token: "Bearer " + token
             });
           }
         );
@@ -87,9 +87,18 @@ router.post("/instructorLogin", (req, res) => {
 // Return current Instructor
 router.get(
   "/current",
-  passport.authenticate("jwt", { seession: false }),
+  passportInstructor.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.json({ msg: "Success" });
+    const errors = {};
+    Instructor.findOne({ _id: req.user.id })
+      .then(instructor => {
+        if (!instructor) {
+          errors.noinstructor = "Not authorized";
+          return res.status(404).json(errors);
+        }
+        res.json(instructor);
+      })
+      .catch(err => res.status(404).json(err));
   }
 );
 
