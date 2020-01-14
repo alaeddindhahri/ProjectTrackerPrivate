@@ -223,7 +223,7 @@ class CnxModal extends React.Component {
             }}
           >
             {this.props.type}
-          </Button>{" "}
+          </Button>
           <Button color="secondary" onClick={this.props.toggle}>
             Cancel
           </Button>

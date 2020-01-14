@@ -8,7 +8,7 @@ import {
   Input
 } from "reactstrap";
 import { connect } from "react-redux";
-import { addProject } from "../Action/Index";
+import { addProject } from "../../../../actions/projectStudentAction";
 
 class AddModal extends React.Component {
   constructor(props) {
@@ -23,7 +23,8 @@ class AddModal extends React.Component {
     modal: false,
     name: "",
     description: "",
-    githubLink: ""
+    githubLink: "",
+    deadline: ""
   };
 
   handleonchangeProject = e => {
@@ -80,7 +81,8 @@ class AddModal extends React.Component {
                   id: Date.now(),
                   name: this.state.name,
                   description: this.state.description,
-                  githubLink: this.state.githubLink
+                  githubLink: this.state.githubLink,
+                  deadline: this.state.deadline
                 });
                 this.toggle();
                 console.log("pp");
