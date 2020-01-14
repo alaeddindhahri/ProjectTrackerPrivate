@@ -8,6 +8,6 @@ import studentsReducer from "./studentsReducer";
 export default combineReducers({
   // authStudent: authStudentReducer,
   authAdmin: authAdminReducer,
-  instructorsReducer: instructorsReducer,
-  studentsReducer: studentsReducer
+  authInstructor: instructorsReducer,
+  authStudent: studentsReducer
 });

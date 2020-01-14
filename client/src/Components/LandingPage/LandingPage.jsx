@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import CnxModal from "../CnxModal/CnxModal";
+// import CnxModal from "../CnxModal/CnxModal";
 import "./LandingPage.css";
+import LoginModal from "../CnxModal/LoginModal";
 
 export class LandingPage extends Component {
   constructor(props) {
@@ -85,7 +86,7 @@ export class LandingPage extends Component {
                     className="nav-link"
                     onClick={() => {
                       this.toggle();
-                      this.setState({ type: "Login" });
+                      // this.setState({ type: "Login" });
                     }}
                   >
                     Login
@@ -96,10 +97,10 @@ export class LandingPage extends Component {
                   <a
                     href="#"
                     className="nav-link"
-                    onClick={() => {
-                      this.toggle();
-                      this.setState({ type: "Sign Up" });
-                    }}
+                    // onClick={() => {
+                    //   this.toggle();
+                    //   this.setState({ type: "Sign Up" });
+                    // }}
                   >
                     Sign Up
                   </a>
@@ -109,11 +110,7 @@ export class LandingPage extends Component {
           </div>
         </nav>
         {this.state.modal ? (
-          <CnxModal
-            modal={this.state.modal}
-            toggle={this.toggle}
-            type={this.state.type}
-          />
+          <LoginModal modal={this.state.modal} toggle={this.toggle} />
         ) : (
           <></>
         )}

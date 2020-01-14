@@ -41,7 +41,7 @@ router.post("/registerinstructor", (req, res) => {
 });
 
 // Login Instructor / Returning JWT Token
-router.post("/instructorLogin", (req, res) => {
+router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -99,6 +99,7 @@ router.get(
         res.json(instructor);
       })
       .catch(err => res.status(404).json(err));
+    console.log("_id: req.user.id", _id);
   }
 );
 

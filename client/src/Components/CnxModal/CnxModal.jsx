@@ -1,16 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "../LandingPage/LandingPage.css";
 import "./CnxModal.css";
-import { addInstructor, getInstructors } from "../../actions/InstructorActions";
+import {
+  addInstructor,
+  getInstructors,
+  loginInstructor
+} from "../../actions/InstructorActions";
 import { addStudent, getStudents } from "../../actions/StudentActions";
 
 class CnxModal extends React.Component {
   state = {
     userType: "",
     users: [],
+    userLogin: { email: "", password: "" },
     newUser: {
       firstName: "",
       lastName: "",
@@ -31,64 +37,77 @@ class CnxModal extends React.Component {
       }
     });
   };
+  handleChangeLogin = e => {
+    this.setState({
+      userLogin: {
+        ...this.state.userLogin,
+        [e.target.name]: e.target.value
+      }
+    });
+  };
 
-  // handleUserType = () => {
-  //   if (this.state.userType === "Student") {
-  //     this.setState({ users: this.props.students });
-  //   } else if (this.state.userType === "Instructor") {
-  //     this.setState({ users: this.props.instructors });
+  handleLogin = () => {
+    const Userdata = {
+      email: this.state.userLogin.email,
+      password: this.state.userLogin.password
+    };
+
+    this.props.loginInstructor(Userdata);
+  };
+
+  // checkEmpty = () => {
+  //   let emptyField = 0;
+  //   // eslint-disable-next-line
+  //   Object.values(this.state.newUser).map(field => {
+  //     if (field === "") emptyField = 1;
+  //   });
+  //   return emptyField;
+  // };
+  // eslint-disable-next-line
+
+  // handleSignUp = () => {
+  //   let validUser = 1;
+  //   if (this.checkEmpty() || this.state.userType === "") {
+  //     alert("One field is empty or empty user type");
+  //     validUser = 0;
+  //   } else {
+  //     // eslint-disable-next-line
+  //     this.state.users.map(user => {
+  //       if (user.email === this.state.newUser.email) {
+  //         alert("email exists");
+  //         validUser = 0;
+  //       } else if (user.username === this.state.newUser.username) {
+  //         alert("UserName exists");
+  //         validUser = 0;
+  //       }
+  //     });
+  //   }
+  //   if (validUser === 1) {
+  //     if (this.state.userType === "Instructor") {
+  //       this.props.addInstructor(this.state.newUser);
+  //       alert(`${this.state.userType} added successfully`);
+  //     } else if (this.state.userType === "Student") {
+  //       this.props.addStudent(this.state.newUser);
+  //       alert(`${this.state.userType} added successfully`);
+  //     }
+  //     this.props.toggle();
   //   }
   // };
-  // handleUserType = e => {
-  //   this.state.userType
-  //     ? this.setState({
-  //         users: this.props.students
-  //       })
-  //     : this.setState({
-  //         users: this.props.instructors
-  //       });
-  // };
 
-  checkEmpty = () => {
-    let emptyField = 0;
-    // eslint-disable-next-line
-    Object.values(this.state.newUser).map(field => {
-      if (field === "") emptyField = 1;
-    });
-    return emptyField;
-  };
-  // eslint-disable-next-line
-  handleSubmit = () => {
-    let validUser = 1;
-    if (this.checkEmpty() || this.state.userType === "") {
-      alert("One field is empty or empty user type");
-      validUser = 0;
-    } else {
-      // eslint-disable-next-line
-      this.state.users.map(user => {
-        if (user.email === this.state.newUser.email) {
-          alert("email exists");
-          validUser = 0;
-        } else if (user.username === this.state.newUser.username) {
-          alert("UserName exists");
-          validUser = 0;
-        }
-      });
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.authInstructor.isAuthenticatedInstructor) {
+      console.log("this props:", this.props);
+      // this.props.history.push("/instructorHome");
+      // window.location.href = "/instructorHome";
     }
-    if (validUser === 1) {
-      if (this.state.userType === "Instructor") {
-        this.props.addInstructor(this.state.newUser);
-        alert(`${this.state.userType} added successfully`);
-      } else if (this.state.userType === "Student") {
-        this.props.addStudent(this.state.newUser);
-        alert(`${this.state.userType} added successfully`);
-      }
-      this.props.toggle();
-    }
-  };
+  }
+
   componentDidMount() {
-    this.props.getInstructors();
-    this.props.getStudents();
+    // this.props.getInstructors();
+    // this.props.getStudents();
+    // if (this.props.authInstructor.isAuthenticatedInstructor) {
+    //   this.props.history.push("/instructorHome");
+    // }
   }
   render() {
     return (
@@ -141,13 +160,17 @@ class CnxModal extends React.Component {
                 className="form-control"
                 id="emailArea"
                 placeholder="Email..."
+                name="email"
+                onChange={this.handleChangeLogin}
               />
               <div className="passwordZone">
                 <input
                   type="password"
-                  className="form-control "
+                  className="form-control"
                   id="passwordArea"
                   placeholder="Password..."
+                  name="password"
+                  onChange={this.handleChangeLogin}
                 />
                 <a href="/" className="forgotPassword">
                   <p>Forgot Password?</p>
@@ -216,14 +239,23 @@ class CnxModal extends React.Component {
           {/* </div> */}
         </ModalBody>
         <ModalFooter>
-          <Button
-            color="primary"
-            onClick={() => {
-              this.handleSubmit();
-            }}
+          <Link
+            to={
+              this.props.authInstructor.isAuthenticatedInstructor === true
+                ? "/instructorHome"
+                : "#"
+            }
           >
-            {this.props.type}
-          </Button>{" "}
+            <Button
+              color="primary"
+              onClick={() => {
+                if (this.props.type === "Sign Up") this.handleSignUp();
+                this.handleLogin();
+              }}
+            >
+              {this.props.type}
+            </Button>
+          </Link>{" "}
           <Button color="secondary" onClick={this.props.toggle}>
             Cancel
           </Button>
@@ -236,9 +268,10 @@ class CnxModal extends React.Component {
 export default connect(
   state => {
     return {
-      instructors: state.instructorsReducer.instructors,
-      students: state.studentsReducer.students
+      authInstructor: state.authInstructor
+      // students: state.studentsReducer.students
     };
   },
-  { getInstructors, addInstructor, getStudents, addStudent }
+  // { getInstructors, addInstructor, getStudents, addStudent,
+  { loginInstructor }
 )(CnxModal);
