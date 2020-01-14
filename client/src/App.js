@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthAdminToken from "./utils/setAuthAdminToken";
 import { setCurrentAdmin, logoutAdmin } from "./actions/authAdminAction";
+import SetAuthStudentToken from "./utils/SetAuthStudentToken";
+import { setCurrentStudent, logoutStudent } from "./actions/authStudentAction";
 
 import { Provider } from "react-redux";
 import Store from "./store/index";
@@ -12,6 +14,7 @@ import LandingPage from "./Components/LandingPage/LandingPage";
 import AdminDashboard from "./Components/adminDashboard/Index";
 import StudentDashboard from "./Components/studentDashboard/Index";
 import AdminLogin from "./Components/adminLogin/index";
+import StudentLogin from "./Components/studentLogin/index";
 import store from "./store/index";
 
 //check for token
@@ -32,6 +35,23 @@ if (localStorage.jwtToken) {
   }
 }
 
+if (localStorage.jwtToken) {
+  //set auth token header auth
+  SetAuthStudentToken(localStorage.jwtToken);
+  //decode token and get student info and expiration
+  const decoded = jwt_decode(localStorage.jwtToken);
+  //set student and isAuthenticated
+  store.dispatch(setCurrentStudent(decoded));
+  //check for expired token
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    //logout student
+    store.dispatch(logoutStudent());
+    //TODO clear student account
+    // window.location.href = '/studentlogin';
+  }
+}
+
 function App() {
   return (
     <Provider store={Store}>
@@ -41,7 +61,8 @@ function App() {
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/adminlogin" component={AdminLogin} />
             <Route path="/admindashboard" component={AdminDashboard} />
-            <Route path="/StudentDashboard" component={StudentDashboard} />
+            <Route exact path="/studentlogin" component={StudentLogin} />
+            <Route path="/studentDashboard" component={StudentDashboard} />
           </Switch>
         </div>
       </BrowserRouter>
