@@ -8,7 +8,6 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-  console.log("ins reducer");
   switch (action.type) {
     case SET_CURRENT_INSTRUCTOR:
       console.log("dispatched SET_CURRENT_INSTRUCTOR ++state", state);

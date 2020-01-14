@@ -14,6 +14,7 @@ class LoginModal extends React.Component {
     userLogin: { email: "", password: "" },
     currentUser: {},
     isAuthenticatedInstructor: false,
+    isAuthenticatedStudent: false,
     redirect: null
   };
 
@@ -31,11 +32,12 @@ class LoginModal extends React.Component {
       email: this.state.userLogin.email,
       password: this.state.userLogin.password
     };
-    this.loginInstructor(Userdata);
+    if (this.state.userType === "Instructor") this.loginInstructor(Userdata);
+    else if (this.state.userType === "Student") this.loginStudent(Userdata);
+    else alert("please specify the usertype");
   };
 
-  loginInstructor = instructordata => {
-    console.log("hello from login", this.state.userLogin);
+  loginInstructor = () => {
     axios
       .post("/api/instructors/login", this.state.userLogin)
       .then(res => {
@@ -62,26 +64,42 @@ class LoginModal extends React.Component {
     });
   };
 
-  //   componentWillReceiveProps(nextProps) {
-  //     console.log("will receive");
-  //     if (this.state.isAuthenticatedInstructor) {
-  //       //   this.props.history.push("/instructorHome");
-  //       window.location.href = "/instructorHome";
-  //     }
-  //   }
+  loginStudent = () => {
+    axios
+      .post("/api/students/login", this.state.userLogin)
+      .then(res => {
+        //save to localStorage
+        const { token } = res.data;
+        //set token to LS
+        localStorage.setItem("jwtToken", token);
+        //set token to Auth header
+        setAuthInstructorToken(token);
+        //decode token to get user data
+        const decoded = jwt_decode(token);
+        //set current admin
+        this.setCurrentStudent(decoded);
+      })
+      .catch(err => console.log("cant login"));
+  };
+
+  //set logged Instructor
+  setCurrentStudent = decoded => {
+    this.setState({
+      isAuthenticatedStudent: !isEmpty(decoded),
+      currentUser: decoded
+    });
+  };
 
   componentDidUpdate() {
-    console.log("will unmount");
-    // this.props.getInstructors();
-    // this.props.getStudents();
     if (this.state.isAuthenticatedInstructor) {
-      //   this.props.history.push(`/instructorHome`);
-      // eslint-disable-next-line
       this.setState({
         redirect: "/instructorHome/" + this.state.currentUser.id
       });
-      //   + this.state.currentUser.id;
-      // }
+    }
+    if (this.state.isAuthenticatedStudent) {
+      this.setState({
+        redirect: "/youtube/" + this.state.currentUser.id
+      });
     }
   }
 
@@ -110,7 +128,6 @@ class LoginModal extends React.Component {
               onClick={() =>
                 this.setState({
                   userType: "Student"
-                  //   users: this.props.students
                 })
               }
             >
@@ -122,7 +139,6 @@ class LoginModal extends React.Component {
               onClick={() =>
                 this.setState({
                   userType: "Instructor"
-                  //   users: this.props.instructors
                 })
               }
             >

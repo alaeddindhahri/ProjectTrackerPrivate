@@ -15,7 +15,6 @@ const initialState = {
 };
 
 const authAdminReducer = (state = initialState, action) => {
-  console.log("admin reducer");
   switch (action.type) {
     case SET_CURRENT_ADMIN:
       console.log("dispatched SET_CURRENT_ADMIN", state);
