@@ -49,11 +49,11 @@ import {setStudents} from '../../actions/studentsAdminAction';
                         <DashboardContent section={this.state.section}/>
                     </div>
                 </div>
-                <div className="row sticky-footer">
+                <footer className="row  myfooter">
                     <div className="copyright text-center my-auto">
                         <span>Copyright © Project Tracker 2020</span>
                     </div>
-                </div>
+                </footer>
             </div>
         )
     }

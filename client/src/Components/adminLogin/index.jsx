@@ -21,15 +21,18 @@ class index extends Component {
     }
 
     componentWillReceiveProps(nextProps){
+        // console.log("comp will receive props")
         if(nextProps.authAdmin.isAuthenticated){
             this.props.history.push('/admindashboard');
         }
 
-        if(nextProps.errors){
+        if(nextProps.authAdmin.errors){
             this.setState({
-                errors:nextProps.errors
+                errors:nextProps.authAdmin.errors
             })
+            // console.log("will receive props errors setting: ",nextProps.errors)
         }
+        // console.log("next props will receive props: ",nextProps)
     }
     handleChange = e =>{
         this.setState({
@@ -48,6 +51,7 @@ class index extends Component {
     }
     render() {
         const {errors} = this.state;
+        // console.log("errors in state: ",errors)
         return (
             <div className="container-fluid">
                 <div className="row login">
@@ -68,7 +72,7 @@ class index extends Component {
                     <div className="form-group">
                         <label >Password</label>
                         <input type="password" name="password" defaultValue={this.state.password} 
-                        className={classnames("form-control",{'is-invalid':errors.username})} 
+                        className={classnames("form-control",{'is-invalid':errors.password})} 
                         // className="form-control"
                         id="exampleInputPassword1" onChange={(e)=>this.handleChange(e)}/>
                         {errors.password&&(<div className="invalid-feedback">{errors.password}</div>)}
@@ -88,7 +92,7 @@ class index extends Component {
 index.propTypes = {
     loginAdmin: PropTypes.func.isRequired,
     authAdmin: PropTypes.object.isRequired,
-    errors:PropTypes.object.isRequired
+    // errors:PropTypes.object.isRequired
 
 }
 const mapStateToProps=state=>({

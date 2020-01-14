@@ -25,7 +25,13 @@ class index extends Component {
                   : "card text-white bg-secondary mb-3"
               }
             >
-              <h5 className="card-header">{project.name}</h5>
+              <div className="card-header">
+              <h5 className="">{project.name}</h5>
+              {project.idInstructor?
+              <button type="button" class="btn btn-lg btn-outline-success" disabled>{this.props.authAdmin.instructors.filter(ins=>ins._id===project.idInstructor)}</button>
+              :
+              <button type="button" class="btn btn-lg btn-outline-danger" disabled>Unassigned</button>}
+              </div>
               <div className="card-body">
                 <p className="card-text">{project.description}</p>
                 {/* eslint-disable-next-line */}
@@ -37,6 +43,7 @@ class index extends Component {
                 >
                   View
                 </a>
+                
                 <AssignModal id="#exampleModal" project={project} />
               </div>
             </div>

@@ -1,5 +1,5 @@
 import isEmpty from '../validation/is-empty';
-import {SET_CURRENT_ADMIN,GET_PROJECTS,GET_INSTRUCTORS,GET_STUDENTS} from '../actions/types';
+import {SET_CURRENT_ADMIN,GET_PROJECTS,GET_INSTRUCTORS,GET_STUDENTS,GET_ERRORS} from '../actions/types';
 
 const initialState = {
     isAuthenticated:false,
@@ -32,6 +32,11 @@ const authAdminReducer = (state=initialState,action)=>{
                 return{
                     ...state,
                     students:action.payload
+                }
+            case GET_ERRORS:
+                return{
+                    ...state,
+                    errors:action.payload
                 }
             default:
             return state;

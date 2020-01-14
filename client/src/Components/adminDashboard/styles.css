@@ -10,7 +10,20 @@
     /* border: solid red; */
     /* min-height: calc(80vh - 56px); */
 }
-.sticky-footer {
+.myfooter {
+    /* border: solid red; */
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width:100%;
+    height: 5%;
+    /* bottom: 0px; */
+    background-color: #343a40;
+  }
+  .copyright span{
+      color: white;
+  }
+/* .sticky-footer {
     display: flex;
     justify-content: center;
     position: absolute;
@@ -21,4 +34,4 @@
   }
   .copyright span{
       color: white;
-  }
+  } */
