@@ -124,6 +124,7 @@ router.get(
   "/account",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log("hello");
     const errors = {};
     Admin.findOne({ _id: req.user.id })
       .then(admin => {

@@ -14,8 +14,8 @@ import LandingPage from "./Components/LandingPage/LandingPage";
 import AdminDashboard from "./Components/adminDashboard/Index";
 import StudentDashboard from "./Components/studentDashboard/Index";
 import AdminLogin from "./Components/adminLogin/index";
-import StudentLogin from "./Components/studentLogin/index";
 import store from "./store/index";
+import InstructorHome from "./Components/InstructorPages/InstructorHome";
 
 //check for token
 if (localStorage.jwtToken) {
@@ -61,8 +61,8 @@ function App() {
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/adminlogin" component={AdminLogin} />
             <Route path="/admindashboard" component={AdminDashboard} />
-            <Route exact path="/studentlogin" component={StudentLogin} />
-            <Route path="/studentDashboard" component={StudentDashboard} />
+            <Route path="/StudentDashboard" component={StudentDashboard} />
+            <Route path="/InstructorHome" component={InstructorHome} />
           </Switch>
         </div>
       </BrowserRouter>
