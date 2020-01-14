@@ -1,5 +1,5 @@
 import axios from "axios";
-import setAuthStudentToken from "../utils/setAuthStudentToken";
+import SetAuthStudentToken from "../utils/SetAuthStudentToken";
 import jwt_decode from "jwt-decode";
 
 import { SET_CURRENT_STUDENT } from "./types";
@@ -14,7 +14,7 @@ export const loginStudent = studentData => dispatch => {
       //set token to LS
       localStorage.setItem("jwtToken", token);
       //set token to Auth header
-      setAuthStudentToken(token);
+      SetAuthStudentToken(token);
       //decode token to get user data
       const decoded = jwt_decode(token);
       //set current student
@@ -40,7 +40,7 @@ export const logoutStudent = () => dispatch => {
   // remove token from local storage
   localStorage.removeItem("jwtToken");
   // remove authStudent header for future requests
-  setAuthStudentToken(false);
+  SetAuthStudentToken(false);
   // set current Student to {} which will set isAuthenticated to false
   dispatch(setCurrentStudent({}));
   window.location.href = "/studentlogin";
@@ -55,7 +55,7 @@ export const updateStudent = (idStudent, newData) => dispatch => {
       // remove token from local storage
       localStorage.removeItem("jwtToken");
       // remove authStudent header for future requests
-      setAuthStudentToken(false);
+      SetAuthStudentToken(false);
       // set current Student to {} which will set isAuthenticated to false
       dispatch(setCurrentStudent({}));
       window.location.href = "/studentlogin";

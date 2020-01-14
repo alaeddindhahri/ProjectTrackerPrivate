@@ -1,11 +1,11 @@
 import axios from "axios";
-import { GET_PROJECT } from "./types";
+import { GET_PROJECTS } from "./types";
 
 export const getproject = () => async dispatch => {
   try {
     const res = await axios.get("/api/projects");
     dispatch({
-      type: GET_PROJECT,
+      type: GET_PROJECTS,
       payload: res.data
     });
   } catch (err) {

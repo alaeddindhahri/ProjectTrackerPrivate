@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-// import PropTypes from "prop-types";
-// import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles.css";
 import Navbar from "./navbar/navbar";
 import Sidebar from "./sidebar/sidebar";
-// import DashboardContent from "./dashboardContent/index";
-// import { setProjects } from "../../actions/projectStudentAction";
-// import AddModal from "./dashboardContent/projects/AddModal";
+import DashboardContent from "./dashboardContent/index";
+import { getproject } from "../../actions/projectStudentAction";
+import AddModal from "./dashboardContent/projects/AddModal";
 
 class index extends Component {
   state = {
-    section: "Statistics"
+    section: "Projects"
   };
   handleRenderedSection = (section, e) => {
     e.preventDefault();
@@ -19,17 +19,17 @@ class index extends Component {
       section: section
     });
   };
-  //   componentDidMount() {
-  //     if (!this.props.authStudent.isAuthenticated) {
-  //       return this.props.history.push("/studentlogin");
-  //     }
-  //     if (this.props.authStudent.students.length !== 0) {
-  //       this.setState({
-  //         section: "Statistics"
-  //       });
-  //     }
-  //     this.props.setProjects();
-  //   }
+    componentDidMount() {
+      if (!this.props.authStudent.isAuthenticated) {
+        return this.props.history.push("/studentlogin");
+      }
+      if (this.props.authStudent.students.length !== 0) {
+        this.setState({
+          section: "Projects"
+        });
+      }
+      this.props.getproject();
+    }
   render() {
     return (
       <div className="container-fluid">
@@ -43,7 +43,7 @@ class index extends Component {
             <Sidebar handleRenderedSection={this.handleRenderedSection} />
           </div>
           <div className="col-lg-10 dashboard-content">
-            {/* <DashboardContent section={this.state.section} /> */}
+            <DashboardContent section={this.state.section} />
           </div>
         </div>
         <div className="row sticky-footer">
@@ -51,18 +51,17 @@ class index extends Component {
             <span>Copyright © Project Tracker 2020</span>
           </div>
         </div>
-        <div>{/* <AddModal /> */}</div>
+        <div><AddModal /></div>
       </div>
     );
   }
 }
-// index.propTypes = {
-//   authStudent: PropTypes.object.isRequired,
-//   errors: PropTypes.object.isRequired
-// };
-// const mapStateToProps = state => ({
-//   authStudent: state.authStudent,
-//   errors: state.errors
-// });
-// export default connect(mapStateToProps, { setProjects })(index);
-export default index;
+index.propTypes = {
+  authStudent: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  authStudent: state.authStudent,
+  errors: state.errors
+});
+export default connect(mapStateToProps, { getproject })(index);
