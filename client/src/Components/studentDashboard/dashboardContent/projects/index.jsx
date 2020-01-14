@@ -7,6 +7,8 @@ import PropTypes from "prop-types";
 class index extends Component {
   state = {
     isOpen: false
+  ,
+  projects: []
   };
   toggleIsOpen = () => {
     this.setState({
@@ -17,13 +19,15 @@ class index extends Component {
   render() {
     return (
       <div className="row">
-        {this.props.authStudent.projects.map((project, key) => (
+        {/* {this.props.authStudent.projects.map((project, key) => ( */}
+          {this.state.projects.map((project, key) => (
           <div key={key} className="col-lg-3 col-xs-12 mt-4">
             <div className="card">
               <h5 className="card-header">{project.name}</h5>
               <div className="card-body">
                 <p className="card-text">{project.description}</p>
                 <p className="card-text">Github Link: {project.githubLink}</p>
+                <p className="card-text">Deadline: {project.deadline}></p>
                 <a
                   href=""
                   className="btn btn-primary"
@@ -49,12 +53,13 @@ class index extends Component {
     );
   }
 }
-index.propTypes = {
-  authStudent: PropTypes.object.isRequired
-  // errors:PropTypes.object.isRequired
-};
-const mapStateToProps = state => ({
-  authStudent: state.authStudent
-  // errors: state.errors
-});
-export default connect(mapStateToProps, {})(index);
+// index.propTypes = {
+//   authStudent: PropTypes.object.isRequired
+//   // errors:PropTypes.object.isRequired
+// };
+// const mapStateToProps = state => ({
+//   authStudent: state.authStudent
+//   // errors: state.errors
+// });
+// export default connect(mapStateToProps, {})(index);
+export default index;
