@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 import "./InstructorHome.css";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+// import { BrowserRouter, Route, Switch } from "react-router-dom";
+import axios from "axios";
 
 import Projects from "./Projects";
-import Dashboard from "./Dashboard";
+// import Dashboard from "./Dashboard";
 import Account from "./Account";
 
 export class InstructorHome extends Component {
   state = {
+    page: "Projects",
+    userData: {},
+    userProjects: [],
     students: [
       {
         firstName: "student",
@@ -109,32 +113,59 @@ export class InstructorHome extends Component {
       }
     ]
   };
+
+  componentDidMount() {
+    console.log(this.props.match.params.id);
+    axios
+      .get(`/api/instructors/getoneinstructor/${this.props.match.params.id}`)
+      .then(response => this.setState({ userData: response.data }));
+    axios
+      .get(`/api/instructors/getProjects/${this.props.match.params.id}`)
+      .then(response => {
+        this.setState({ userProjects: response.data });
+        console.log("helo");
+      });
+  }
+
+  handleLogOut = () => {
+    localStorage.removeItem("jwtToken");
+    window.location.href = "http://localhost:3000";
+  };
   render() {
     return (
       <div>
         <nav className="navbar navbar-dark bg-dark">
-          <h3 style={{ color: "white" }}>Welcome User</h3>
+          <button
+            type="button"
+            class="btn btn-danger logout-btn "
+            onClick={() => this.handleLogOut()}
+          >
+            Log Out
+          </button>
+          <h3 style={{ color: "white" }}>
+            Welcome {this.state.userData.username}
+          </h3>
         </nav>
         <div className="sidenav">
-          <a href="/">Dashboard</a>
-          <a href="/projects">Projects</a>
-          <a href="/account">Account</a>
+          {/* eslint-disable-next-line */}
+          <a href="#" onClick={() => this.setState({ page: "Projects" })}>
+            Projects
+          </a>
+          {/* eslint-disable-next-line */}
+          <a href="#" onClick={() => this.setState({ page: "Account" })}>
+            Account
+          </a>
         </div>
         <div className="main">
-          <BrowserRouter>
-            <Switch>
-              <Route
-                exact
-                path="/"
-                component={() => <Dashboard projects={this.state.projects} />}
-              />
-              <Route
-                path="/projects"
-                component={() => <Projects projects={this.state.projects} />}
-              />
-              <Route path="/account" component={() => <Account />} />
-            </Switch>
-          </BrowserRouter>
+          {this.state.page === "Projects" ? (
+            this.state.userProjects.length !== 0 ? (
+              <Projects projects={this.state.userProjects} />
+            ) : (
+              <h1>No Projects assigned yet...</h1>
+            )
+          ) : (
+            <Account userData={this.state.userData} />
+          )}
         </div>
       </div>
     );

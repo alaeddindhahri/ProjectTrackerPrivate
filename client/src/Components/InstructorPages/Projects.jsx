@@ -1,12 +1,23 @@
 import React from "react";
 import "./Projects.css";
+import axios from "axios";
 // import { Link } from "react-router-dom";
+
+const handlevalidate = id => {
+  axios
+    .put(`/api/instructors/updateProject/${id}`, {
+      status: "validated"
+    })
+    .then(response => {
+      console.log("validated successfully or maybe not");
+    });
+};
 
 function Projects(props) {
   return (
     <div className="projectsList">
       {props.projects.map((project, index) => {
-        const { name, description, githubLink, idStudent, status } = project;
+        const { _id, name, description, githubLink, status } = project;
         return (
           <div className="card" key={index}>
             <img
@@ -17,10 +28,15 @@ function Projects(props) {
             <h3>{name}</h3>
             <h4>{githubLink}</h4>
             <p>{description}</p>
-            <p>
-              ID Student: <a href="/">{idStudent}</a>
-            </p>
-            <p>Status: {status}</p>
+            <p className="status-area">Status: {status}</p>
+            <button
+              href=""
+              onClick={() => handlevalidate(_id)}
+              type="button"
+              class="btn btn-success validate-btn"
+            >
+              Validate
+            </button>
           </div>
         );
       })}

@@ -62,7 +62,7 @@ function App() {
             <Route exact path="/adminlogin" component={AdminLogin} />
             <Route path="/admindashboard" component={AdminDashboard} />
             <Route path="/StudentDashboard" component={StudentDashboard} />
-            <Route path="/InstructorHome" component={InstructorHome} />
+            <Route path="/InstructorHome/:id" component={InstructorHome} />
           </Switch>
         </div>
       </BrowserRouter>
