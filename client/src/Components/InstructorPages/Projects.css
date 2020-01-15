@@ -4,7 +4,6 @@
   margin: 3%;
   text-align: center;
 }
-
 .title {
   color: grey;
   font-size: 18px;
@@ -15,4 +14,13 @@
 .projectsList {
   display: flex;
   flex-wrap: wrap;
+}
+.validate-btn {
+  position: absolute;
+  bottom: 0px;
+  left: 38%;
+  /* margin-top: 10%; */
+}
+.status-area {
+  padding-bottom: 10%;
 }

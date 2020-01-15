@@ -103,4 +103,27 @@ router.get(
   }
 );
 
+router.get("/getoneinstructor/:_id", (req, res) => {
+  const { _id } = req.params;
+  Instructor.findOne({ _id })
+    .then(instructor => res.json(instructor))
+    .catch(err => res.send("error"));
+});
+
+router.get("/getProjects/:idInstructor", (req, res) => {
+  const { idInstructor } = req.params;
+  Project.find({ idInstructor })
+    .then(project => res.json(project))
+    .catch(err => res.send("error"));
+});
+
+// validate project
+router.put("/updateProject/:_id", (req, res) => {
+  const { _id } = req.params;
+  const modifiedField = req.body;
+  Project.findOneAndUpdate({ _id }, { $set: { ...modifiedField } })
+    .then(project => res.json(project))
+    .catch(err => res.send("error"));
+});
+
 module.exports = router;
