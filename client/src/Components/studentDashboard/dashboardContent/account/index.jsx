@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 import classnames from 'classnames';
-import {updateStudent} from '../../../../actions/authStudentAction';
 import './css/styles.css';
 
 class index extends Component {
@@ -97,8 +95,5 @@ index.propTypes = {
     errors:PropTypes.object.isRequired
 
 }
-const mapStateToProps=state=>({
-    authStudent: state.authStudent,
-    errors: state.errors
-})
-export default connect(mapStateToProps,{updateStudent})(index);
+
+export default index;

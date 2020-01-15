@@ -98,7 +98,7 @@ class LoginModal extends React.Component {
     }
     if (this.state.isAuthenticatedStudent) {
       this.setState({
-        redirect: "/youtube/" + this.state.currentUser.id
+        redirect: "/StudentDashboard/" + this.state.currentUser.id
       });
     }
   }

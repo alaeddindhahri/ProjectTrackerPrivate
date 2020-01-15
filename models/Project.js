@@ -23,16 +23,13 @@ const ProjectSchema = new Schema(
     idStudent: {
       type: String
     },
-    idInstructor: {
-      type: String
-    },
+    idInstructor: {},
     creationDate: {
       type: Date,
       required: true
     },
     deadline: {
-      type: Date,
-      required: true
+      type: Date
     },
     assignmentDate: {
       type: Date,

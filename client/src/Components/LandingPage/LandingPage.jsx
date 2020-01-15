@@ -134,8 +134,7 @@ export class LandingPage extends Component {
                         Track Your Projects Easily
                       </h1>
                       <p className="text-white-70 mt-4 f-15 mb-0">
-                        Get quick and easy access to track your Projects. Also
-                        for Instructors who need to keep up with their students
+                        Get quick and easy access to track your Projects as well as the Instructors who need to keep up with their students
                         and their progress on their work
                       </p>
                     </div>
@@ -243,7 +242,7 @@ export class LandingPage extends Component {
                   </h4>
                   <p className="text-muted f-14">
                     Very effective and considered as a productivity booster by
-                    all users to motivate and inspire you with your work
+                    all users, Students, Instructors and Admins.
                   </p>
                 </div>
               </div>
@@ -310,14 +309,13 @@ export class LandingPage extends Component {
                     <div className="service-title mb-2 position-relative">
                       <h5 className="font-weight-normal mb-3">
                         <a href="/" className="text-dark">
-                          Awesome Support
+                          Real-Time Tracking
                         </a>
                       </h5>
                     </div>
                     <p className="text-muted mb-3 f-14">
-                      Easy on the eye and comfortable to work with, plain and
-                      simple Project Tracker will make your work and life much
-                      easier
+                      All instructors will have the ability to check on their students progress.
+                      Students will be able to track their project status, from creation to validation.
                     </p>
                   </div>
                 </div>
@@ -333,14 +331,12 @@ export class LandingPage extends Component {
                     <div className="service-title mb-2 position-relative">
                       <h5 className="font-weight-normal mb-3">
                         <a href="/" className="text-dark">
-                          Unlimited Colors
+                          Multi-user platform
                         </a>
                       </h5>
                     </div>
                     <p className="text-muted mb-3 f-14">
-                      Keeps you updated with every detail changed in your
-                      project or your student's project for smooth and efficient
-                      work flow
+                      We provide you with a single platform for fully efficient project tracking system by different entities.
                     </p>
                   </div>
                 </div>
@@ -356,86 +352,18 @@ export class LandingPage extends Component {
                     <div className="service-title mb-2 position-relative">
                       <h5 className="font-weight-normal mb-3">
                         <a href="/" className="text-dark">
-                          Strategy Solutions
+                          God Eye
                         </a>
                       </h5>
                     </div>
                     <p className="text-muted mb-3 f-14">
-                      Very effective and considered as a productivity booster by
-                      all users to motivate and inspire you with your work
+                      As for our administrator, you have full control over your organization's platform. You have the ability to manage your users efficiently.
                     </p>
                   </div>
                 </div>
               </div>
               {/* <!-- col end --> */}
 
-              <div className="col-lg-4 col-md-6">
-                <div className="service-box rounded mt-4 p-4">
-                  <div className="service-icon mb-3">
-                    <i className="mdi mdi-yin-yang"></i>
-                  </div>
-                  <div className="services-desc">
-                    <div className="service-title mb-2 position-relative">
-                      <h5 className="font-weight-normal mb-3">
-                        <a href="/" className="text-dark">
-                          Digital Design
-                        </a>
-                      </h5>
-                    </div>
-                    <p className="text-muted mb-3 f-14">
-                      Keeps you updated with every detail changed in your
-                      project or your student's project for smooth and efficient
-                      work flow
-                    </p>
-                  </div>
-                </div>
-              </div>
-              {/* <!-- col end --> */}
-
-              <div className="col-lg-4 col-md-6">
-                <div className="service-box rounded mt-4 p-4">
-                  <div className="service-icon mb-3">
-                    <i className="mdi mdi-apple-keyboard-command"></i>
-                  </div>
-                  <div className="services-desc">
-                    <div className="service-title mb-2 position-relative">
-                      <h5 className="font-weight-normal mb-3">
-                        <a href="/" className="text-dark">
-                          Easy to customize
-                        </a>
-                      </h5>
-                    </div>
-                    <p className="text-muted mb-3 f-14">
-                      Very effective and considered as a productivity booster by
-                      all users to motivate and inspire you with your work
-                    </p>
-                  </div>
-                </div>
-              </div>
-              {/* <!-- col end --> */}
-
-              <div className="col-lg-4 col-md-6">
-                <div className="service-box rounded mt-4 p-4">
-                  <div className="service-icon mb-3">
-                    <i className="mdi mdi-hexagon-multiple"></i>
-                  </div>
-                  <div className="services-desc">
-                    <div className="service-title mb-2 position-relative">
-                      <h5 className="font-weight-normal mb-3">
-                        <a href="/" className="text-dark">
-                          Truly Multipurpose
-                        </a>
-                      </h5>
-                    </div>
-                    <p className="text-muted mb-3 f-14">
-                      Easy on the eye and comfortable to work with, plain and
-                      simple Project Tracker will make your work and life much
-                      easier
-                    </p>
-                  </div>
-                </div>
-              </div>
-              {/* <!-- col end --> */}
             </div>
             {/* <!-- row end --> */}
           </div>
@@ -461,107 +389,7 @@ export class LandingPage extends Component {
                     their progress on their work
                   </p>
                 </div>
-              </div>
-              {/* <!-- col end --> */}
-              <div className="col-lg-8">
-                <div className="row">
-                  <div className="col-lg-4">
-                    <div className="mb-5">
-                      <p
-                        className="text-uppercase footer-title mb-4"
-                        style={{ color: "white" }}
-                      >
-                        company
-                      </p>
-                      <ul className="list-unstyled footer-sub-menu">
-                        <li className="f-14">
-                          <a href="/" className="text-muted">
-                            Monitoring Grader
-                          </a>
-                        </li>
-                        <li className="f-14">
-                          <a href="/" className="text-muted">
-                            Job Opening
-                          </a>
-                        </li>
-                        <li className="f-14">
-                          <a href="/" className="text-muted">
-                            Customers
-                          </a>
-                        </li>
-                        <li className="f-14">
-                          <a href="/" className="text-muted">
-                            Privacy
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  {/* <!-- col end --> */}
 
-                  <div className="col-lg-4">
-                    <div className="mb-5">
-                      <p
-                        className="text-uppercase  footer-title mb-4"
-                        style={{ color: "white" }}
-                      >
-                        support
-                      </p>
-                      <ul className="list-unstyled footer-sub-menu">
-                        <li className="f-14">
-                          <a href="/" className="text-muted">
-                            Get Started
-                          </a>
-                        </li>
-                        <li className="f-14">
-                          <a href="/" className="text-muted">
-                            Blog
-                          </a>
-                        </li>
-                        <li className="f-14">
-                          <a href="/" className="text-muted">
-                            Knowledge Base
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  {/* <!-- col end --> */}
-
-                  <div className="col-lg-4">
-                    <div className="mb-5">
-                      <p
-                        className="text-uppercase footer-title mb-4"
-                        style={{ color: "white" }}
-                      >
-                        Legal
-                      </p>
-                      <ul className="list-unstyled footer-sub-menu">
-                        <li className="f-14">
-                          <a href="/" className="text-muted">
-                            Terms & Conditions
-                          </a>
-                        </li>
-                        <li className="f-14">
-                          <a href="/" className="text-muted">
-                            Privacy Policy
-                          </a>
-                        </li>
-                        <li className="f-14">
-                          <a href="/" className="text-muted">
-                            Customers
-                          </a>
-                        </li>
-                        <li className="f-14">
-                          <a href="/" className="text-muted">
-                            Pricing
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  {/* <!-- col end --> */}
-                </div>
                 {/* <!-- row end --> */}
               </div>
               {/* <!-- col end --> */}

@@ -167,7 +167,8 @@ router.put("/project/:_id", (req, res) => {
     {
       $set: {
         idInstructor: updatedProject.idInstructor,
-        assignmentDate: Date.now()
+        assignmentDate: Date.now(),
+        status:"in progress"
       }
     }
   )

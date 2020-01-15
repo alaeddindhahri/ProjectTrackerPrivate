@@ -19,14 +19,14 @@ export default class sidebar extends Component {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav navbar-nav-dashadmin">
             {/* eslint-disable-next-line */}
-            <a
+            {/* <a
               className="nav-item nav-link  "
               href=""
               onClick={e => this.props.handleRenderedSection("Statistics", e)}
             >
               <i className="fas fa-home"></i>
               <span>Dashboard</span>
-            </a>
+            </a> */}
             {/* eslint-disable-next-line */}
             <a
               className="nav-item nav-link"

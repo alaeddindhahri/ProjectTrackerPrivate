@@ -1,33 +1,45 @@
 import React from "react";
 import { Button, Modal, ModalHeader, ModalFooter, Input } from "reactstrap";
-import { connect } from "react-redux";
-import {updateProject} from '../../../../actions/projectStudentAction';
+import axios from "axios";
+import "./project.css";
 
-  class EditModal extends React.Component {
-
-  
-    updateProject = () =>
-    axios.put(`/api/projects?projectId=${this.props.match.params.id}`
+class EditModal extends React.Component {
+  state = {
+    project: {},
+    modal: false
+  };
+  componentDidMount() {
+    this.setState({
+      project: this.props.project
+    });
+  }
+  updateProject = () => {
+    axios
+      .put(
+        `/api/projects/updateProject/${this.state.project._id}`,
+        this.state.project
       )
-      .then(res =>
-        this.setState({
-          Details: res.data
-        })
-      );
-      
-    handleChange = e =>
-    setProject({ ...project, [e.target.name]: e.target.value });
-  
-    toggle = () => {
-      this.setState({
-        modal: !this.state.modal
-      });
-    };
-  
+      .then();
+    window.location.href =
+      "http://localhost:3000/StudentDashboard/" + this.state.project.idStudent;
+  };
+
+  handleChange = e => {
+    this.setState({
+      project: { ...this.state.project, [e.target.name]: e.target.value }
+    });
+  };
+
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal
+    });
+  };
+
   render() {
     return (
       <div>
-        <Button onClick={this.toggle} className="edit-btn">
+        <Button onClick={() => this.toggle()} className="edit-btn">
           Edit
         </Button>
         <Modal
@@ -36,38 +48,43 @@ import {updateProject} from '../../../../actions/projectStudentAction';
           className={this.props.className}
         >
           <ModalHeader toggle={this.toggle}>Edit Project</ModalHeader>
+          <p>Name:</p>
           <Input
-        type="text"
-        name="name"
-        placeholder="name"
-        value={project.name}
-        onChange={handleChange}
-      />
-      <Input
-        type="text"
-        name="Description"
-        value={project.description}
-        placeholder="description"
-        onChange={handleChange}
-      />
-      <Input
-        type="text"
-        name="Github Link"
-        placeholder="Github Link"
-        onChange={handleChange}
-        value={project.githubLink}
-      />
+            type="text"
+            name="name"
+            placeholder="name"
+            defaultValue={this.state.project.name}
+            onChange={e => this.handleChange(e)}
+          />
+         <p>Description:</p>
+          <Input
+            type="text"
+            name="description"
+            defaultValue={this.state.project.description}
+            placeholder="description"
+            onChange={e => this.handleChange(e)}
+          />
+          <p>Github Link:</p>
+          <Input
+            type="text"
+            name="githubLink"
+            placeholder="Github Link"
+            onChange={e => this.handleChange(e)}
+            defaultValue={this.state.project.githubLink}
+          />
           <ModalFooter className="btneditx">
-          <Button
-        onClick={() => {
-          updateProject(props.project._id);
-        }}
-      >
-        Save changes
-      </Button>
+            
+            <Button
+              onClick={() => {
+                this.updateProject(this.state.project._id);
+              }}
+            >
+              Save changes
+            </Button>
             <Button className="btn btn-danger" onClick={this.toggle}>
               Cancel
             </Button>
+            
           </ModalFooter>
         </Modal>
       </div>
@@ -75,4 +92,4 @@ import {updateProject} from '../../../../actions/projectStudentAction';
   }
 }
 
-export default connect(null, { updateProject })(EditModal);
+export default EditModal;

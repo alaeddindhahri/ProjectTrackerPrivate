@@ -7,10 +7,11 @@ import "./css/style.css";
 // import {logoutStudent} from '../../../actions/authStudentAction';
 
 class navbar extends Component {
-  // handleLogout=e=>{
-  //     e.preventDefault();
-  //     this.props.logoutStudent();
-  // }
+  handleLogout = e => {
+    e.preventDefault();
+    localStorage.removeItem("jwtToken");
+    window.location.href = "http://localhost:3000/";
+  };
   render() {
     // const {admin}= this.props.authStudent;
     return (
@@ -19,11 +20,11 @@ class navbar extends Component {
           Project Tracker
         </a>
         <ul className="navbar-nav ml-auto ml-md-0">
-          <li className="nav-item dropdown no-arrow">
+          <li className="nav-item">
             {/* eslint-disable-next-line */}
-            <a
+            {/* <a
+              href="#"
               className="nav-link dropdown-toggle"
-              href=""
               id="userDropdown"
               role="button"
               data-toggle="dropdown"
@@ -35,24 +36,26 @@ class navbar extends Component {
             <div
               className="dropdown-menu dropdown-menu-right"
               aria-labelledby="userDropdown"
+            > */}
+            {/* eslint-disable-next-line */}
+            <a
+              className="dropdown-item"
+              style={{ backgroundColor: "gray" }}
+              href=""
+              // onClick={e => this.props.handleRenderedSection("Account", e)}
+              onClick={e => this.handleLogout(e)}
             >
-              {/* eslint-disable-next-line */}
-              <a
-                className="dropdown-item"
-                href=""
-                onClick={e => this.props.handleRenderedSection("Account", e)}
-              >
-                Account
-              </a>
-              {/* eslint-disable-next-line */}
-              <a
+              Logout
+            </a>
+            {/* eslint-disable-next-line */}
+            {/* <a
                 className="dropdown-item"
                 href="#"
-                // onClick={e => this.handleLogout(e)}
+                onClick={e => this.handleLogout(e)}
               >
                 Logout
               </a>
-            </div>
+            </div> */}
           </li>
         </ul>
       </nav>

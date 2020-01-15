@@ -22,6 +22,7 @@ function Projects(props) {
             </p>
             <p>Status: {status}</p>
           </div>
+        
         );
       })}
     </div>
