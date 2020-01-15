@@ -4,15 +4,6 @@ import PropTypes from "prop-types";
 import AssignModal from "./assignModal";
 
 class index extends Component {
-  state = {
-    isOpen: false
-  };
-  toggleIsOpen = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-    console.log("toggled modal");
-  };
   render() {
     return (
       <div className="row">
@@ -25,12 +16,13 @@ class index extends Component {
                   : "card text-white bg-secondary mb-3"
               }
             >
-              <div className="card-header">
-              <h5 className="">{project.name}</h5>
+              <div className="card-header project-assignment-card">
               {project.idInstructor?
-              <button type="button" class="btn btn-lg btn-outline-success" disabled>{this.props.authAdmin.instructors.filter(ins=>ins._id===project.idInstructor)}</button>
+              
+              <button type="button" class="btn btn-lg btn-outline-success btn-assign-status" disabled>Assigned</button>
               :
-              <button type="button" class="btn btn-lg btn-outline-danger" disabled>Unassigned</button>}
+              <button type="button" class="btn btn-lg btn-outline-warning btn-assign-status" disabled>Unassigned</button>}
+              <h5 className="project-card-name">{project.name}</h5>
               </div>
               <div className="card-body">
                 <p className="card-text">{project.description}</p>
@@ -40,11 +32,10 @@ class index extends Component {
                   className="btn btn-primary"
                   data-toggle="modal"
                   data-target="#exampleModal"
+                  onClick={()=>{this.props.toggleIsOpen();this.props.setProjectIdInModal(project._id)}}
                 >
                   View
                 </a>
-                
-                <AssignModal id="#exampleModal" project={project} />
               </div>
             </div>
           </div>

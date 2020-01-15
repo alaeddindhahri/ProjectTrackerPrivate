@@ -5,7 +5,26 @@ import Statistics from "./statistics/index";
 import Instructors from "./instructors/index";
 import Students from "./students/index";
 import Projects from "./projects/index";
+import AssignModal from "./projects/assignModal";
+
+
 export default class index extends Component {
+  state = {
+    isOpen: false,
+    idProject:null,
+  };
+  toggleIsOpen = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+    console.log("toggled modal");
+  };
+  setProjectIdInModal= id=>{
+    this.setState({
+      idProject:id
+    })
+  }
+
   renderSwitchSection = () => {
     switch (this.props.section) {
       case "Account":
@@ -17,7 +36,7 @@ export default class index extends Component {
       case "Students":
         return <Students />;
       case "Projects":
-        return <Projects />;
+        return <Projects toggleIsOpen={this.toggleIsOpen} setProjectIdInModal={this.setProjectIdInModal}/>;
       default:
         return <Statistics />;
     }
@@ -26,6 +45,7 @@ export default class index extends Component {
     return (
       <div className="container-fluid content-container">
         {this.renderSwitchSection()}
+        {this.state.isOpen?<AssignModal id="#exampleModal" toggleIsOpen={this.toggleIsOpen} idProject={this.state.idProject}/>:null}
       </div>
     );
   }

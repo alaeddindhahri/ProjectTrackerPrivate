@@ -60,7 +60,7 @@ import {setStudents} from '../../actions/studentsAdminAction';
 }
 index.propTypes = {
     authAdmin: PropTypes.object.isRequired,
-    errors:PropTypes.object.isRequired
+    errors:PropTypes.object
 
 }
 const mapStateToProps=state=>({

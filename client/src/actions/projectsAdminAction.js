@@ -18,7 +18,7 @@ export const assignProject=(idProject,idInstructor)=>dispatch=>{
     axios.put(`/api/admin/project/${idProject}`,{idInstructor})
         .then(res=>{
             dispatch({
-                type:GET_PROJECTS,
+                type:"GET_PROJECTSS",
                 payload:res.data
             })
         })

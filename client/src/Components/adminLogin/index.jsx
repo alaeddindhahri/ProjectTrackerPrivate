@@ -30,7 +30,7 @@ class index extends Component {
             this.setState({
                 errors:nextProps.authAdmin.errors
             })
-            // console.log("will receive props errors setting: ",nextProps.errors)
+            //  console.log("will receive props errors setting: ",nextProps.errors)
         }
         // console.log("next props will receive props: ",nextProps)
     }
@@ -46,7 +46,7 @@ class index extends Component {
             username: this.state.username,
             password: this.state.password
         };
-
+        // console.log("props in submit: ",this.props) 
         this.props.loginAdmin(adminData);
     }
     render() {
@@ -62,7 +62,7 @@ class index extends Component {
                         type="text" 
                         name="username" 
                         defaultValue={this.state.username} 
-                        className={classnames('form-control',
+                        className={classnames('admin-input form-control',
                         {'is-invalid':errors.username})} 
                         // className="form-control"
                         id="exampleInputEmail1" 
@@ -72,7 +72,7 @@ class index extends Component {
                     <div className="form-group">
                         <label >Password</label>
                         <input type="password" name="password" defaultValue={this.state.password} 
-                        className={classnames("form-control",{'is-invalid':errors.password})} 
+                        className={classnames("admin-input form-control",{'is-invalid':errors.password})} 
                         // className="form-control"
                         id="exampleInputPassword1" onChange={(e)=>this.handleChange(e)}/>
                         {errors.password&&(<div className="invalid-feedback">{errors.password}</div>)}
@@ -92,7 +92,7 @@ class index extends Component {
 index.propTypes = {
     loginAdmin: PropTypes.func.isRequired,
     authAdmin: PropTypes.object.isRequired,
-    // errors:PropTypes.object.isRequired
+    errors:PropTypes.object
 
 }
 const mapStateToProps=state=>({

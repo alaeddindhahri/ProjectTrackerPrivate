@@ -5,7 +5,7 @@ import { assignProject } from "../../../../actions/projectsAdminAction";
 
 class pickInstructorCard extends Component {
   handleAssign = idInstructor => {
-    this.props.assignProject(this.props.project._id, idInstructor);
+    this.props.assignProject(this.props.projectID, idInstructor);
   };
   render() {
     return (

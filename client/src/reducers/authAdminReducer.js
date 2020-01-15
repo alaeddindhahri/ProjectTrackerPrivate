@@ -32,6 +32,11 @@ const authAdminReducer = (state = initialState, action) => {
         ...state,
         students: action.payload
       };
+    case GET_ERRORS:
+      return {
+        ...state,
+        errors: action.payload
+      };
     default:
       return state;
   }

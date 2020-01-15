@@ -30,7 +30,7 @@ class navbar extends Component {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <i className="fas fa-user-circle fa-fw"></i>
+              <i className="fas fa-user-circle fa-fw" style={{"fontSize":"2rem"}}></i>
             </a>
             <div
               className="dropdown-menu dropdown-menu-right"
