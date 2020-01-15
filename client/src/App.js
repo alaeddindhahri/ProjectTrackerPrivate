@@ -5,7 +5,6 @@ import jwt_decode from "jwt-decode";
 import setAuthAdminToken from "./utils/setAuthAdminToken";
 import { setCurrentAdmin, logoutAdmin } from "./actions/authAdminAction";
 import SetAuthStudentToken from "./utils/SetAuthStudentToken";
-import { setCurrentStudent, logoutStudent } from "./actions/authStudentAction";
 
 import { Provider } from "react-redux";
 import Store from "./store/index";
@@ -41,12 +40,12 @@ if (localStorage.jwtToken) {
   //decode token and get student info and expiration
   const decoded = jwt_decode(localStorage.jwtToken);
   //set student and isAuthenticated
-  store.dispatch(setCurrentStudent(decoded));
+
   //check for expired token
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
     //logout student
-    store.dispatch(logoutStudent());
+
     //TODO clear student account
     // window.location.href = '/studentlogin';
   }

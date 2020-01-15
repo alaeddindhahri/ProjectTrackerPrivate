@@ -6,13 +6,15 @@ import "./styles.css";
 import Navbar from "./navbar/navbar";
 import Sidebar from "./sidebar/sidebar";
 import DashboardContent from "./dashboardContent/index";
-import { getproject } from "../../actions/projectStudentAction";
 import AddModal from "./dashboardContent/projects/AddModal";
 
 class index extends Component {
   state = {
     section: "Projects"
   };
+  getProject=()=>{
+
+  }
   handleRenderedSection = (section, e) => {
     e.preventDefault();
     this.setState({
@@ -28,7 +30,7 @@ class index extends Component {
           section: "Projects"
         });
       }
-      this.props.getproject();
+      this.getproject();
     }
   render() {
     return (
@@ -64,4 +66,4 @@ const mapStateToProps = state => ({
   authStudent: state.authStudent,
   errors: state.errors
 });
-export default connect(mapStateToProps, { getproject })(index);
+export default index;

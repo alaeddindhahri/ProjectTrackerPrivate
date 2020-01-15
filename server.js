@@ -33,7 +33,7 @@ require("./config/passport")(passport);
 app.use('/api/admin',admin);
 app.use('/api/students',students);
 app.use('/api/projects',projects);
-// app.use('/api/projectAttachments',projectAttachments);
+app.use('/api/projectAttachments',projectAttachments);
 app.use("/api/instructors", instructors);
 
 const port = process.env.PORT || 5432;

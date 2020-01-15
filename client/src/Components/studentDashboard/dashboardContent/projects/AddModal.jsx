@@ -8,7 +8,6 @@ import {
   Input
 } from "reactstrap";
 import { connect } from "react-redux";
-import { addProject } from "../../../../actions/projectStudentAction";
 
 class AddModal extends React.Component {
   constructor(props) {
@@ -26,7 +25,9 @@ class AddModal extends React.Component {
     githubLink: "",
     deadline: ""
   };
+  addProject=()=>{
 
+  }
   handleonchangeProject = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -77,7 +78,7 @@ class AddModal extends React.Component {
               color="primary"
               type="button"
               onClick={() => {
-                addProject({
+                this.addProject({
                   id: Date.now(),
                   name: this.state.name,
                   description: this.state.description,
@@ -106,4 +107,4 @@ class AddModal extends React.Component {
   }
 }
 
-export default connect(null, { addProject })(AddModal);
+export default AddModal;
