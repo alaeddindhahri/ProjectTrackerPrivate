@@ -2,13 +2,30 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { toggleInstructor } from "../../../../actions/instructorsAdminAction";
+import InstructorModal from './instructorModal';
 
 class index extends Component {
+  state={
+    isOpen:false,
+    idInstructor:null,
+  }
+
+  handleIsOpen=()=>{
+    this.setState({
+      isOpen:!this.state.isOpen
+    })
+  }
+  handleIdInstructor = id=>{
+    this.setState({
+      idInstructor: id
+    })
+  }
   handleToggle = (idInstructor, status) => {
     this.props.toggleInstructor(idInstructor, status);
   };
   render() {
     return (
+      <div>
       <div className="row">
         {this.props.authAdmin.instructors.map((instructor, key) => (
           <div key={key} className="col-lg-3 col-xs-12 mt-4">
@@ -31,7 +48,7 @@ class index extends Component {
                   style={{ display: "flex", justifyContent: "space-around" }}
                 >
                   {/* eslint-disable-next-line */}
-                  <a href="" className="btn btn-primary">
+                  <a href="#" className="btn btn-primary" onClick={()=>{this.handleIsOpen();this.handleIdInstructor(instructor._id)}}>
                     View
                   </a>
                   {/* eslint-disable-next-line */}
@@ -51,6 +68,8 @@ class index extends Component {
             </div>
           </div>
         ))}
+      </div>
+      {this.state.isOpen?<InstructorModal handleIsOpen={this.handleIsOpen} idInstructor={this.state.idInstructor}/>:null}
       </div>
     );
   }
