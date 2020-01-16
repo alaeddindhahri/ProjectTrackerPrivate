@@ -2,12 +2,12 @@
   height: 100%;
   width: 160px;
   position: fixed;
-  z-index: 1;
+  z-index: 0;
   top: 0;
   left: 0;
   background-color: #111;
   overflow-x: hidden;
-  padding-top: 60px;
+  padding-top: 100px;
 }
 
 .sidenav a {
@@ -41,6 +41,16 @@
 nav {
   display: flex !important;
   justify-content: flex-end !important;
+  position: relative;
+  z-index: 1;
+}
+nav > h3 {
+  color: white;
+}
+.projectTitle {
+  position: absolute;
+  top: 15%;
+  left: 1%;
 }
 .progressBar {
   width: 50%;

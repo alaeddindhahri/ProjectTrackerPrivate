@@ -33,12 +33,12 @@ class SignUp extends React.Component {
     if (this.state.userType === "Instructor") {
       this.addInstructor(this.state.newUser);
       alert(`${this.state.userType} added successfully`);
+      this.props.toggle();
     } else if (this.state.userType === "Student") {
       this.addStudent(this.state.newUser);
       alert(`${this.state.userType} added successfully`);
+      this.props.toggle();
     } else alert("please specify user type");
-
-    this.props.toggle();
   };
   handleChange = e => {
     this.setState({

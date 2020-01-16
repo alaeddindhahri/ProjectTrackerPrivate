@@ -12,7 +12,7 @@ class LoginModal extends React.Component {
   state = {
     userType: "",
     userLogin: { email: "", password: "" },
-    currentUser: {},
+    currentUser: null,
     isAuthenticatedInstructor: false,
     isAuthenticatedStudent: false,
     redirect: null
@@ -91,22 +91,25 @@ class LoginModal extends React.Component {
   };
 
   componentDidUpdate() {
-    if (this.state.isAuthenticatedInstructor) {
-      this.setState({
-        redirect: "/instructorHome/" + this.state.currentUser.id
-      });
-    }
-    if (this.state.isAuthenticatedStudent) {
-      this.setState({
-        redirect: "/StudentDashboard/" + this.state.currentUser.id
-      });
+    if (this.state.currentUser && this.state.currentUser.isActive === false) {
+      alert("sorry this user is not active");
+      this.props.toggle();
+    } else {
+      if (this.state.isAuthenticatedInstructor) {
+        this.setState({
+          redirect: "/instructorHome/" + this.state.currentUser.id
+        });
+      }
+      if (this.state.isAuthenticatedStudent) {
+        this.setState({
+          redirect: "/StudentDashboard/" + this.state.currentUser.id
+        });
+      }
     }
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
-    }
+    if (this.state.redirect) return <Redirect to={this.state.redirect} />;
     return (
       <Modal isOpen={this.props.modal} toggle={this.props.toggle}>
         <ModalHeader toggle={this.toggle}>Login...</ModalHeader>
