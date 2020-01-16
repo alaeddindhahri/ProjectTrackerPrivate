@@ -54,6 +54,12 @@ class index extends Component {
         // console.log("errors in state: ",errors)
         return (
             <div className="container-fluid">
+                <div className="row">
+                    <a href="http://localhost:3000/" className="admin-login-header">
+                        <img src="https://dcassetcdn.com/design_img/1559024/551167/551167_7840631_1559024_911ff84c_image.png" width="50 px" height="50 px" alt="Project Tracker"/>
+                        <h1>Project Tracker</h1>
+                    </a>
+                </div>
                 <div className="row login">
                 <form noValidate className="login-form" onSubmit={(e)=>this.handleSubmit(e)}>
                     <div className="form-group">
@@ -80,7 +86,7 @@ class index extends Component {
                     <button type="submit" className="btn btn-primary">Login</button>
                 </form>
                 </div>
-                <div className="row sticky-footer">
+                <div className="row myfooter pt-2">
                     <div className="copyright text-center">
                         <span>Copyright © Project Tracker 2020</span>
                     </div>

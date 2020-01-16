@@ -6,7 +6,7 @@ import PickInstructorCard from './pickInstructorCard';
 class assignModal extends Component {
     render() {
         return (
-            <div>
+            <div className="assign-modal">
                 {/* <div className="modal fade" 
                 id="exampleModal" 
                 tabIndex="-1" 
@@ -14,7 +14,7 @@ class assignModal extends Component {
                 aria-labelledby="exampleModalLabel"
                  aria-hidden="true"
                  > */}
-                    <div className="modal-dialog" role="document">
+                    <div className="modal-dialog " role="document">
                         <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="exampleModalLabel" style={{"color":"black"}}>Assign an instructor to this Project</h5>
@@ -25,7 +25,7 @@ class assignModal extends Component {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <PickInstructorCard instructors={this.props.authAdmin.instructors} 
+                            <PickInstructorCard instructors={this.props.authAdmin.instructors.filter(ins=>ins._id!==this.props.idInstructor)} 
                             projectID={this.props.idProject}
                             />
                         </div>

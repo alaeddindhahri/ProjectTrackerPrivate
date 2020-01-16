@@ -388,6 +388,7 @@ export class LandingPage extends Component {
                     Instructors who need to keep up with their students and
                     their progress on their work
                   </p>
+                  <a href="http://localhost:3000/adminlogin" type="button" class="btn btn-outline-dark">Admin Access</a>
                 </div>
 
                 {/* <!-- row end --> */}

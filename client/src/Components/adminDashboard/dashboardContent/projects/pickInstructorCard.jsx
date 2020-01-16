@@ -9,7 +9,7 @@ class pickInstructorCard extends Component {
   };
   render() {
     return (
-      <div className="row">
+      <div className="row" style={{"justifyContent":"center"}}>
         {this.props.instructors.map((instructor, key) =>
           instructor.isActive ? (
             // eslint-disable-next-line

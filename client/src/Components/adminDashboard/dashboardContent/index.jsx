@@ -12,6 +12,7 @@ export default class index extends Component {
   state = {
     isOpen: false,
     idProject:null,
+    idInstructor:null
   };
   toggleIsOpen = () => {
     this.setState({
@@ -22,6 +23,11 @@ export default class index extends Component {
   setProjectIdInModal= id=>{
     this.setState({
       idProject:id
+    })
+  }
+  setInstructorIdInModal= id=>{
+    this.setState({
+      idInstructor:id
     })
   }
 
@@ -36,7 +42,7 @@ export default class index extends Component {
       case "Students":
         return <Students />;
       case "Projects":
-        return <Projects toggleIsOpen={this.toggleIsOpen} setProjectIdInModal={this.setProjectIdInModal}/>;
+        return <Projects toggleIsOpen={this.toggleIsOpen} setProjectIdInModal={this.setProjectIdInModal} setInstructorIdInModal={this.setInstructorIdInModal}/>;
       default:
         return <Statistics />;
     }
@@ -45,7 +51,7 @@ export default class index extends Component {
     return (
       <div className="container-fluid content-container">
         {this.renderSwitchSection()}
-        {this.state.isOpen?<AssignModal id="#exampleModal" toggleIsOpen={this.toggleIsOpen} idProject={this.state.idProject}/>:null}
+        {this.state.isOpen?<AssignModal className="assign-modal" id="#exampleModal" toggleIsOpen={this.toggleIsOpen} idProject={this.state.idProject} idInstructor={this.state.idInstructor}/>:null}
       </div>
     );
   }

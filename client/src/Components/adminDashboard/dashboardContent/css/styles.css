@@ -11,6 +11,14 @@
 .project-card-name{
     margin-top: 20%;
 }
+.projects-container{
+    position: relative;
+}
+.assign-modal{
+    position: absolute;
+    top: 5%;
+    left: 40%;
+}
 /* .modal-dialog{
     background-color:grey;
     box-shadow: 0px 0px 150px 142px rgba(0,0,0,0.75);
