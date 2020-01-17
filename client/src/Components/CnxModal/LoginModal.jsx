@@ -93,6 +93,7 @@ class LoginModal extends React.Component {
   componentDidUpdate() {
     if (this.state.currentUser && this.state.currentUser.isActive === false) {
       alert("sorry this user is not active");
+      localStorage.removeItem('jwtToken');
       this.props.toggle();
     } else {
       if (this.state.isAuthenticatedInstructor) {
