@@ -2,7 +2,7 @@
   font-size: 20px;
   margin: 0px;
 }
-.instructor-form-control {
+.form-control-instructor,.form-control-login-modal {
   width: 60% !important;
   margin: 2%;
 }

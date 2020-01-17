@@ -62,7 +62,8 @@ router.post("/login", (req, res) => {
           id: instructor.id,
           firstName: instructor.firstName,
           lastName: instructor.lastName,
-          email: instructor.email
+          email: instructor.email,
+          isActive: instructor.isActive
         };
 
         // Sign Token
@@ -107,6 +108,12 @@ router.get("/getoneinstructor/:_id", (req, res) => {
   const { _id } = req.params;
   Instructor.findOne({ _id })
     .then(instructor => res.json(instructor))
+    .catch(err => res.send("error"));
+});
+router.get("/getonestudent/:_id", (req, res) => {
+  const { _id } = req.params;
+  Student.findOne({ _id })
+    .then(student => res.json(student))
     .catch(err => res.send("error"));
 });
 

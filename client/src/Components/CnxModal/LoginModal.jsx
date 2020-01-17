@@ -12,7 +12,7 @@ class LoginModal extends React.Component {
   state = {
     userType: "",
     userLogin: { email: "", password: "" },
-    currentUser: {},
+    currentUser: null,
     isAuthenticatedInstructor: false,
     isAuthenticatedStudent: false,
     redirect: null
@@ -91,20 +91,27 @@ class LoginModal extends React.Component {
   };
 
   componentDidUpdate() {
-    if (this.state.isAuthenticatedInstructor) {
-      this.setState({
-        redirect: "/instructorHome/" + this.state.currentUser.id
-      });
-    }
-    if (this.state.isAuthenticatedStudent) {
-      this.setState({
-        redirect: "/StudentDashboard/" + this.state.currentUser.id
-      });
+    if (this.state.currentUser && this.state.currentUser.isActive === false) {
+      alert("sorry this user is not active");
+      this.props.toggle();
+    } else {
+      if (this.state.isAuthenticatedInstructor) {
+        this.setState({
+          redirect: "/instructorHome/" + this.state.currentUser.id
+        });
+      }
+      if (this.state.isAuthenticatedStudent) {
+        this.setState({
+          redirect: "/StudentDashboard/" + this.state.currentUser.id
+        });
+      }
     }
   }
 
   render() {
+    console.log("this is the redirect", this.state.redirect);
     if (this.state.redirect) {
+      console.log("will redirect");
       return <Redirect to={this.state.redirect} />;
     }
     return (
@@ -150,7 +157,7 @@ class LoginModal extends React.Component {
           </h5>
           <input
             type="email"
-            className="form-control"
+            className="form-control form-control-login-modal"
             id="emailArea"
             placeholder="Email..."
             name="email"
@@ -159,7 +166,7 @@ class LoginModal extends React.Component {
           <div className="passwordZone">
             <input
               type="password"
-              className="form-control"
+              className="form-control form-control-login-modal"
               id="passwordArea"
               placeholder="Password..."
               name="password"

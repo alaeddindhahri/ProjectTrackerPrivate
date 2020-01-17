@@ -42,7 +42,8 @@ router.post("/registerStudent", (req, res) => {
     username: req.body.username,
     password: req.body.password,
     phoneNumber: req.body.phoneNumber,
-    birthDate: req.body.birthDate
+    birthDate: req.body.birthDate,
+    isActive: req.body.isActive
   });
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(newStudent.password, salt, (err, hash) => {
@@ -115,7 +116,8 @@ router.post("/login", (req, res) => {
           id: student.id,
           username: student.username,
           password: student.password,
-          email: student.email
+          email: student.email,
+          isActive: student.isActive
         }; // create JWT Payload
         //sign Token
         jwt.sign(
