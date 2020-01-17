@@ -8,7 +8,7 @@ const Project = require("../../models/Project");
 // @desc : Get All Project
 // @access : public
 router.get("/getAllProjects/:idStudent", (req, res) => {
-  console.log("router exec");
+  // console.log("router exec");
   const { idStudent } = req.params;
   Project.find({ idStudent })
     .then(projects => res.json(projects))

@@ -18,7 +18,7 @@ export default class index extends Component {
     this.setState({
       isOpen: !this.state.isOpen
     });
-    console.log("toggled modal");
+    // console.log("toggled modal");
   };
   setProjectIdInModal= id=>{
     this.setState({
