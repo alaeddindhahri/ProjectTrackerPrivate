@@ -1,4 +1,4 @@
-# Project Tracker Private
+# Project Tracker
 Project Tracker is an app developed using MERN Stack as part of my Fullstack JS bootcamp at GoMyCode Tunis.
 
 ## Getting Started
