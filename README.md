@@ -20,10 +20,6 @@ A step by step series of examples that tell you how to get a development env run
 * [CanvasJS]
 * [Boostrap]
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
 ## Screenshots
 <a href="https://ibb.co/tHCS6CC"><img src="https://i.ibb.co/qD1z811/Image-1.png" alt="home page" border="0" /></a>
 
